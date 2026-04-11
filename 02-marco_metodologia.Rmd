@@ -1,0 +1,105 @@
+# Marco teórico y metodología del EDA
+
+## Fundamento físico del problema
+
+La respuesta de un sistema de un grado de libertad sometido a movimiento de base puede expresarse como:
+
+$$
+\ddot{x}(t) + 2\zeta\omega_n\dot{x}(t) + \omega_n^2 x(t) = -\ddot{x}_g(t)
+$$
+
+donde:
+
+- $\zeta$ es el amortiguamiento,
+- $\omega_n$ es la frecuencia natural,
+- $\ddot{x}_g(t)$ es la aceleración del suelo.
+
+A partir de esta formulación se construyen los **espectros de respuesta**, y una ordenada típica de aceleración espectral se puede resumir como:
+
+$$
+S_a(T,\zeta)=\max_t \left| \ddot{x}(t) + \ddot{x}_g(t) \right|
+$$
+
+## RotD50 y escala logarítmica
+
+La variable objetivo del proyecto corresponde a un valor de tipo RotD50:
+
+$$
+\mathrm{RotD50}(T)=P_{50}\left(S_a^{(\theta)}(T)\right)
+$$
+
+En este libro, la respuesta observada en el dataset es:
+
+$$
+y = \ln \left(S_a(T = 0.01\,s)\right)
+$$
+
+Por eso, en varios gráficos del EDA se muestran dos niveles de lectura:
+
+1. **escala logarítmica**, que es como aparece en la base,
+2. **escala física**, obtenida al aplicar:
+
+$$
+S_a = e^y
+$$
+
+## Papel de `Tmax`
+
+El dataset incluye una variable `Tmax` que resume el periodo máximo confiable para el espectro del registro. Su interpretación básica es:
+
+$$
+T \leq T_{\max}
+$$
+
+En el caso del EDA presentado aquí, `Tmax` se considera una variable descriptiva adicional, útil para entender la calidad y extensión confiable del contenido espectral.
+
+## Variables de entrada más importantes
+
+Para la etapa exploratoria y para la fase posterior de modelación, las variables centrales son:
+
+- `Magnitude`
+- `Rrup_OpenQuake`
+- `Hypocenter Depth (km)`
+- `Soil_Class`
+- `Tmax`
+- `origen`
+
+Estas variables representan, respectivamente, dimensiones ligadas a **fuente**, **trayectoria**, **sitio**, **calidad/alcance espectral** y **procedencia del registro**.
+
+## Enfoque metodológico del libro
+
+Aunque la app Shiny integra secciones de comparación de modelos, este libro se restringe al **EDA**, organizado en tres capítulos principales:
+
+### 1. Análisis univariado
+
+Se revisan distribución, dispersión, sesgo, presencia de valores extremos, balance de clases y pruebas simples de normalidad.
+
+### 2. Análisis bivariado
+
+Se estudian relaciones entre la respuesta `T_0.01_RotD50` y las variables de interés, además de asociaciones entre variables predictoras y entre variables categóricas.
+
+### 3. Análisis multivariado
+
+Se exploran matrices de correlación, nubes de puntos combinadas, relaciones espaciales y visualizaciones de estructura conjunta.
+
+## Decisiones prácticas de trabajo
+
+Para mantener coherencia con el Jupyter Book de referencia:
+
+- el EDA se organiza en capítulos **Univariado**, **Bivariado** y **Multivariado**;
+- `T_0.01_RotD50` se analiza tanto en su forma original como en escala física `exp(T_0.01_RotD50)`;
+- `Soil_Class` y `origen` se tratan como variables categóricas;
+- se incluyen comentarios interpretativos breves después de los bloques principales;
+- el código queda en **R Markdown** para que el libro pueda regenerarse y publicarse desde GitHub Pages.
+
+## Resumen operativo
+
+El flujo implementado en este libro es:
+
+1. Carga del dataset.
+2. Limpieza básica y tipificación de variables.
+3. Construcción de la variable `Sa_0_01 = exp(T_0.01_RotD50)`.
+4. Visualización y resumen univariado.
+5. Exploración bivariada con escalas adecuadas.
+6. Exploración multivariada y espacial.
+7. Síntesis de hallazgos para etapas posteriores.

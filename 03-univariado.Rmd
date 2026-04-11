@@ -1,0 +1,204 @@
+# Análisis univariado
+
+## Vista inicial y faltantes
+
+```{r estructura-y-faltantes}
+summary_tbl <- tibble(
+  variable = names(df),
+  tipo = vapply(df, function(x) class(x)[1], FUN.VALUE = character(1)),
+  faltantes = vapply(df, function(x) sum(is.na(x)), FUN.VALUE = integer(1))
+)
+
+knitr::kable(summary_tbl, caption = "Estructura básica y faltantes por variable")
+```
+
+## Variable objetivo: `T_0.01_RotD50`
+
+La variable de respuesta se almacena como logaritmo natural. Para facilitar la interpretación física, en esta sección se trabaja sobre `Sa_0_01 = exp(T_0.01_RotD50)`.
+
+```{r objetivo-resumen}
+cont_summary(df, "Sa_0_01") |>
+  knitr::kable(digits = 4, caption = "Resumen de la variable respuesta en escala física")
+```
+
+```{r objetivo-hist}
+ggplot(df, aes(x = Sa_0_01)) +
+  geom_histogram(bins = 50, fill = "#2c7fb8", color = "white") +
+  scale_x_log10(labels = label_scientific()) +
+  labs(
+    title = "Histograma de Sa(T = 0.01 s) en escala física",
+    x = "Sa_0.01",
+    y = "Frecuencia"
+  )
+```
+
+```{r objetivo-ecdf}
+ggplot(df, aes(x = Sa_0_01)) +
+  stat_ecdf(geom = "step", linewidth = 0.9, color = "#045a8d") +
+  scale_x_log10(labels = label_scientific()) +
+  labs(
+    title = "ECDF de Sa(T = 0.01 s)",
+    x = "Sa_0.01",
+    y = "F(x)"
+  )
+```
+
+```{r objetivo-box}
+ggplot(df, aes(x = Sa_0_01, y = "")) +
+  geom_boxplot(fill = "#2c7fb8", outlier.alpha = 0.35) +
+  scale_x_log10(labels = label_scientific()) +
+  labs(
+    title = "Boxplot de Sa(T = 0.01 s)",
+    x = "Sa_0.01",
+    y = NULL
+  )
+```
+
+La distribución de la respuesta es marcadamente asimétrica hacia la derecha: la mayoría de observaciones se concentra en niveles bajos de aceleración y aparece una cola de registros con amplitudes considerablemente mayores.
+
+## `Magnitude`
+
+```{r magnitude-summary}
+cont_summary(df, "Magnitude") |>
+  knitr::kable(digits = 3, caption = "Resumen de magnitud")
+```
+
+```{r magnitude-plots}
+ggplot(df, aes(x = Magnitude)) +
+  geom_histogram(bins = 35, fill = "#2c7fb8", color = "white") +
+  labs(title = "Distribución de la magnitud", x = "Magnitude", y = "Frecuencia")
+```
+
+```{r magnitude-ecdf}
+ggplot(df, aes(x = Magnitude)) +
+  stat_ecdf(geom = "step", linewidth = 0.9, color = "#2c7fb8") +
+  labs(title = "ECDF de magnitud", x = "Magnitude", y = "F(x)")
+```
+
+La distribución de magnitud es multimodal, consistente con un dataset integrado a partir de múltiples contextos o subconjuntos de eventos.
+
+## `Hypocenter Depth (km)`
+
+```{r depth-summary}
+cont_summary(df, "Hypocenter Depth (km)") |>
+  knitr::kable(digits = 3, caption = "Resumen de profundidad hipocentral")
+```
+
+```{r depth-hist}
+ggplot(df, aes(x = `Hypocenter Depth (km)`)) +
+  geom_histogram(bins = 40, fill = "#2c7fb8", color = "white") +
+  labs(title = "Distribución de la profundidad hipocentral", x = "Profundidad (km)", y = "Frecuencia")
+```
+
+```{r depth-box}
+ggplot(df, aes(x = `Hypocenter Depth (km)`, y = "")) +
+  geom_boxplot(fill = "#2c7fb8", outlier.alpha = 0.35) +
+  labs(title = "Boxplot de profundidad hipocentral", x = "Profundidad (km)", y = NULL)
+```
+
+La mayor parte de registros corresponde a eventos someros. La cola hacia profundidades mayores existe, pero representa una fracción claramente menor del conjunto.
+
+## `Rrup_OpenQuake`
+
+```{r rrup-summary}
+cont_summary(df, "Rrup_OpenQuake") |>
+  knitr::kable(digits = 3, caption = "Resumen de distancia de ruptura")
+```
+
+```{r rrup-hist}
+ggplot(df, aes(x = Rrup_OpenQuake)) +
+  geom_histogram(bins = 50, fill = "#2c7fb8", color = "white") +
+  scale_x_log10(labels = label_number()) +
+  labs(title = "Distribución de Rrup_OpenQuake", x = "Rrup_OpenQuake (km)", y = "Frecuencia")
+```
+
+```{r rrup-ecdf}
+ggplot(df, aes(x = Rrup_OpenQuake)) +
+  stat_ecdf(geom = "step", linewidth = 0.9, color = "#2c7fb8") +
+  scale_x_log10(labels = label_number()) +
+  labs(title = "ECDF de Rrup_OpenQuake", x = "Rrup_OpenQuake (km)", y = "F(x)")
+```
+
+La distancia de ruptura presenta una distribución fuertemente sesgada a la derecha, con abundancia de registros en distancias pequeñas y medias, y una cola de observaciones más lejanas.
+
+## `Tmax`
+
+```{r tmax-summary}
+cont_summary(df, "Tmax") |>
+  knitr::kable(digits = 3, caption = "Resumen de Tmax")
+```
+
+```{r tmax-hist}
+ggplot(df, aes(x = Tmax)) +
+  geom_histogram(bins = 45, fill = "#2c7fb8", color = "white") +
+  labs(title = "Distribución de Tmax", x = "Tmax (s)", y = "Frecuencia")
+```
+
+`Tmax` se concentra en valores relativamente bajos, lo que sugiere que gran parte del dataset cuenta con un rango confiable corto o medio dentro del dominio espectral.
+
+## `Soil_Class`
+
+```{r soil-counts}
+soil_counts <- df |>
+  count(Soil_Class) |>
+  mutate(porcentaje = n / sum(n))
+
+knitr::kable(soil_counts, digits = 3, caption = "Conteo y proporción por Soil_Class")
+```
+
+```{r soil-bar}
+ggplot(soil_counts, aes(x = Soil_Class, y = n)) +
+  geom_col(fill = "#3182bd") +
+  labs(title = "Frecuencia por clase de suelo", x = "Soil_Class", y = "Número de registros")
+```
+
+La base está desbalanceada entre clases de suelo; una de las implicaciones es que las comparaciones y modelos posteriores deben interpretar con cautela las categorías menos representadas.
+
+## Estaciones sísmicas y eventos
+
+```{r estaciones-eventos}
+est_tbl <- tibble(
+  indicador = c("Ubicaciones únicas de estación", "Ubicaciones únicas de evento"),
+  valor = c(
+    n_distinct(paste(df$`Station Latitude`, df$`Station Longitude`)),
+    n_distinct(paste(df$`Seismic Latitude`, df$`Seismic Longitude`))
+  )
+)
+
+knitr::kable(est_tbl, caption = "Cobertura espacial básica del dataset")
+```
+
+## Distribución de `origen`
+
+```{r origen-counts}
+origin_counts <- df |>
+  count(origen) |>
+  mutate(porcentaje = n / sum(n))
+
+knitr::kable(origin_counts, digits = 3, caption = "Distribución por origen")
+```
+
+```{r origen-bar}
+ggplot(origin_counts, aes(x = origen, y = n)) +
+  geom_col(fill = "#4F81BD", show.legend = FALSE) +
+  labs(
+    title = "Distribución de registros por origen",
+    x = "Origen",
+    y = "Número de registros"
+  )
+```
+
+El origen del dataset no está balanceado. Ese hecho es metodológicamente importante porque cualquier resultado agregado puede reflejar más el comportamiento del grupo dominante que el del subconjunto colombiano.
+
+## Pruebas de normalidad
+
+```{r normality-tests}
+normality_tbl <- ks_normality_table(
+  df,
+  c("Hypocenter Depth (km)", "Magnitude", "Rrup_OpenQuake", "Tmax", "T_0.01_RotD50")
+)
+
+knitr::kable(normality_tbl, digits = 5, caption = "Pruebas KS sobre variables estandarizadas")
+```
+
+Como ocurre con frecuencia en bases sísmicas y en muestras grandes, la evidencia apunta a distribuciones no normales en varias de las variables numéricas principales. Eso respalda el uso de visualizaciones robustas, escalas logarítmicas y medidas no paramétricas en el resto del EDA.

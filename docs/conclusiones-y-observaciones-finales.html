@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>EDA de aceleraciones espectrales para movimientos del suelo</title>
+  <title>Capítulo 6 Conclusiones y observaciones finales | EDA de aceleraciones espectrales para movimientos del suelo</title>
   <meta name="description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="EDA de aceleraciones espectrales para movimientos del suelo" />
+  <meta property="og:title" content="Capítulo 6 Conclusiones y observaciones finales | EDA de aceleraciones espectrales para movimientos del suelo" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="EDA de aceleraciones espectrales para movimientos del suelo" />
+  <meta name="twitter:title" content="Capítulo 6 Conclusiones y observaciones finales | EDA de aceleraciones espectrales para movimientos del suelo" />
   
   <meta name="twitter:description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="contexto-problema-y-objetivos.html"/>
+<link rel="prev" href="análisis-multivariado-1.html"/>
+<link rel="next" href="referencias.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,6 +51,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.12.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -233,69 +241,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">EDA de aceleraciones espectrales para movimientos del suelo</h1>
-<p class="author"><em>Eliasib Pájaro</em></p>
-<p class="date"><em>10 abril 2026</em></p>
-</div>
-<div id="presentación" class="section level1 unnumbered hasAnchor">
-<h1>Presentación<a href="index.html#presentaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Este libro en <strong>bookdown</strong> reorganiza el material del proyecto en un formato de lectura continua.<br />
-El foco principal es el <strong>análisis exploratorio de datos (EDA)</strong> del conjunto <code>NGACOL.csv</code>, manteniendo la estructura conceptual del Jupyter Book original en tres bloques:</p>
+<div id="conclusiones-y-observaciones-finales" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Capítulo 6</span> Conclusiones y observaciones finales<a href="conclusiones-y-observaciones-finales.html#conclusiones-y-observaciones-finales" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="hallazgos-principales-del-eda" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Hallazgos principales del EDA<a href="conclusiones-y-observaciones-finales.html#hallazgos-principales-del-eda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li><strong>Análisis univariado</strong></li>
-<li><strong>Análisis bivariado</strong></li>
-<li><strong>Análisis multivariado</strong></li>
+<li>La variable <code>T_0.01_RotD50</code>, al llevarse a escala física, presenta una distribución fuertemente sesgada a la derecha.</li>
+<li><code>Magnitude</code> y <code>Rrup_OpenQuake</code> son las variables con relación más clara con la respuesta.</li>
+<li><code>Hypocenter Depth (km)</code> aporta información, pero su efecto aislado luce menos dominante.</li>
+<li><code>Soil_Class</code> muestra diferencias de distribución y dispersión que justifican mantenerla como componente relevante.</li>
+<li>La variable <code>origen</code> confirma que el dataset no es homogéneo y que existe una mezcla entre subconjuntos con comportamientos potencialmente distintos.</li>
 </ol>
-<p>Además, se incluyen dos capítulos introductorios con el contenido conceptual que en la app Shiny aparece como <strong>Contexto, Problema, Objetivos, Marco teórico y Metodología</strong>.</p>
-<div id="panorama-del-dataset" class="section level2 hasAnchor" number="0.1">
-<h2><span class="header-section-number">0.1</span> Panorama del dataset<a href="index.html#panorama-del-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El archivo analizado contiene <strong>10,239</strong> registros, <strong>403</strong> combinaciones únicas de ubicación de evento y <strong>4,113</strong> ubicaciones únicas de estación.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a>  métrica <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Observaciones&quot;</span>, <span class="st">&quot;Ubicaciones únicas de evento&quot;</span>, <span class="st">&quot;Ubicaciones únicas de estación&quot;</span>, <span class="st">&quot;Variables&quot;</span>),</span>
-<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a>  <span class="at">valor =</span> <span class="fu">c</span>(</span>
-<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a>    scales<span class="sc">::</span><span class="fu">comma</span>(n_obs),</span>
-<span id="cb1-5"><a href="index.html#cb1-5" tabindex="-1"></a>    scales<span class="sc">::</span><span class="fu">comma</span>(n_eventos),</span>
-<span id="cb1-6"><a href="index.html#cb1-6" tabindex="-1"></a>    scales<span class="sc">::</span><span class="fu">comma</span>(n_estaciones),</span>
-<span id="cb1-7"><a href="index.html#cb1-7" tabindex="-1"></a>    <span class="fu">ncol</span>(df)</span>
-<span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a>  )</span>
-<span id="cb1-9"><a href="index.html#cb1-9" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb1-10"><a href="index.html#cb1-10" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Resumen general del conjunto de datos&quot;</span>)</span></code></pre></div>
-<table>
-<caption><span id="tab:dataset-overview">Table 0.1: </span>Resumen general del conjunto de datos</caption>
-<thead>
-<tr class="header">
-<th align="left">métrica</th>
-<th align="left">valor</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Observaciones</td>
-<td align="left">10,239</td>
-</tr>
-<tr class="even">
-<td align="left">Ubicaciones únicas de evento</td>
-<td align="left">403</td>
-</tr>
-<tr class="odd">
-<td align="left">Ubicaciones únicas de estación</td>
-<td align="left">4,113</td>
-</tr>
-<tr class="even">
-<td align="left">Variables</td>
-<td align="left">13</td>
-</tr>
-</tbody>
-</table>
 </div>
-<div id="cómo-leer-este-libro" class="section level2 hasAnchor" number="0.2">
-<h2><span class="header-section-number">0.2</span> Cómo leer este libro<a href="index.html#c%C3%B3mo-leer-este-libro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="implicaciones-para-la-modelación-posterior" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Implicaciones para la modelación posterior<a href="conclusiones-y-observaciones-finales.html#implicaciones-para-la-modelaci%C3%B3n-posterior" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A partir del EDA, quedan bien justificadas varias decisiones típicas de una etapa de modelación:</p>
 <ul>
-<li>Los dos primeros capítulos recogen el <strong>marco conceptual</strong> del proyecto.</li>
-<li>Los tres siguientes reproducen la lógica del <strong>Jupyter Book de EDA</strong>.</li>
-<li>El último capítulo sintetiza los hallazgos más relevantes para la tesis y para la etapa posterior de modelación.</li>
+<li>usar escalas logarítmicas o transformaciones derivadas para variables con fuerte asimetría;</li>
+<li>vigilar el sesgo introducido por la mezcla de orígenes;</li>
+<li>tratar <code>Soil_Class</code> como variable categórica;</li>
+<li>considerar métricas y esquemas de validación robustos frente a distribuciones no normales y desbalance.</li>
 </ul>
+</div>
+<div id="alcance-y-limitaciones-del-libro" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Alcance y limitaciones del libro<a href="conclusiones-y-observaciones-finales.html#alcance-y-limitaciones-del-libro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este libro fue diseñado para ser una base de lectura clara y reproducible del <strong>EDA</strong>. No incluye:</p>
+<ul>
+<li>entrenamiento de modelos,</li>
+<li>ajuste de hiperparámetros,</li>
+<li>validación por evento,</li>
+<li>ni comparación final de arquitecturas predictivas.</li>
+</ul>
+<p>Esos pasos pertenecen a una fase distinta del proyecto. Aquí la meta es dejar bien documentada la lógica exploratoria que sostiene esas decisiones futuras.</p>
+</div>
+<div id="cierre" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Cierre<a href="conclusiones-y-observaciones-finales.html#cierre" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El resultado final es un <strong>R bookdown</strong> listo para integrarse al flujo de GitHub Pages del proyecto, con una estructura ordenada, narrativa técnica y código reproducible orientado al análisis exploratorio de datos sísmicos.</p>
 
 </div>
 </div>
@@ -304,8 +285,8 @@ El foco principal es el <strong>análisis exploratorio de datos (EDA)</strong> d
           </div>
         </div>
       </div>
-
-<a href="contexto-problema-y-objetivos.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="análisis-multivariado-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -360,6 +341,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

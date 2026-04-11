@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>EDA de aceleraciones espectrales para movimientos del suelo</title>
+  <title>Capítulo 1 Contexto, problema y objetivos | EDA de aceleraciones espectrales para movimientos del suelo</title>
   <meta name="description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="EDA de aceleraciones espectrales para movimientos del suelo" />
+  <meta property="og:title" content="Capítulo 1 Contexto, problema y objetivos | EDA de aceleraciones espectrales para movimientos del suelo" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="EDA de aceleraciones espectrales para movimientos del suelo" />
+  <meta name="twitter:title" content="Capítulo 1 Contexto, problema y objetivos | EDA de aceleraciones espectrales para movimientos del suelo" />
   
   <meta name="twitter:description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="contexto-problema-y-objetivos.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="marco-teórico-y-metodología-del-eda.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,6 +51,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.12.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -233,69 +241,147 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">EDA de aceleraciones espectrales para movimientos del suelo</h1>
-<p class="author"><em>Eliasib Pájaro</em></p>
-<p class="date"><em>10 abril 2026</em></p>
+<div id="contexto-problema-y-objetivos" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Capítulo 1</span> Contexto, problema y objetivos<a href="contexto-problema-y-objetivos.html#contexto-problema-y-objetivos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="contexto-del-estudio" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Contexto del estudio<a href="contexto-problema-y-objetivos.html#contexto-del-estudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Colombia se localiza en una zona tectónicamente activa por la interacción de placas y por la complejidad del sistema andino. En ese entorno, la estimación de <strong>aceleraciones espectrales</strong> resulta relevante para ingeniería sismorresistente, evaluación de amenaza sísmica y desarrollo de modelos regionales de movimiento del suelo.</p>
+<p>La variable de interés en este libro es <code>T_0.01_RotD50</code>, que representa el <strong>logaritmo natural</strong> de la aceleración espectral para un periodo muy corto, asociado a la medida rotacional <strong>RotD50</strong>. A nivel aplicado, este tipo de variable sirve como insumo para:</p>
+<ul>
+<li>espectros de diseño,</li>
+<li>evaluación de demanda sísmica,</li>
+<li>comparación entre escenarios de fuente, trayectoria y sitio,</li>
+<li>exploración de regularidades antes de construir modelos predictivos.</li>
+</ul>
 </div>
-<div id="presentación" class="section level1 unnumbered hasAnchor">
-<h1>Presentación<a href="index.html#presentaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Este libro en <strong>bookdown</strong> reorganiza el material del proyecto en un formato de lectura continua.<br />
-El foco principal es el <strong>análisis exploratorio de datos (EDA)</strong> del conjunto <code>NGACOL.csv</code>, manteniendo la estructura conceptual del Jupyter Book original en tres bloques:</p>
+<div id="problema-de-investigación" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Problema de investigación<a href="contexto-problema-y-objetivos.html#problema-de-investigaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La disponibilidad de registros locales suele ser más limitada que en regiones altamente instrumentadas. Esa restricción afecta la calibración de relaciones predictivas regionales y obliga a examinar con detalle el comportamiento estadístico del conjunto de datos disponible.</p>
+<p>Desde esa perspectiva, antes de modelar conviene responder preguntas como:</p>
+<ul>
+<li>¿qué tan sesgadas están las variables?</li>
+<li>¿qué tan balanceadas están las clases categóricas?</li>
+<li>¿qué relaciones bivariadas aparecen entre magnitud, distancia, profundidad y respuesta?</li>
+<li>¿qué señales multivariadas permiten justificar transformaciones o decisiones de preprocesamiento?</li>
+</ul>
+<p>Este libro se concentra en esa fase: <strong>EDA</strong>, no en entrenamiento de modelos.</p>
+</div>
+<div id="objetivo-general" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Objetivo general<a href="contexto-problema-y-objetivos.html#objetivo-general" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Construir un libro reproducible en <strong>R bookdown</strong> que documente y organice el análisis exploratorio del dataset sísmico utilizado en el proyecto, conservando la lógica del Jupyter Book original e incorporando el marco conceptual de la app Shiny.</p>
+</div>
+<div id="objetivos-específicos" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Objetivos específicos<a href="contexto-problema-y-objetivos.html#objetivos-espec%C3%ADficos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li><strong>Análisis univariado</strong></li>
-<li><strong>Análisis bivariado</strong></li>
-<li><strong>Análisis multivariado</strong></li>
+<li>Describir las variables relevantes del problema y el rol que cumplen dentro del análisis.</li>
+<li>Analizar la distribución individual de la variable objetivo y de las variables predictoras principales.</li>
+<li>Explorar relaciones bivariadas entre respuesta, magnitud, distancia, profundidad, clase de suelo y origen.</li>
+<li>Examinar patrones multivariados mediante correlaciones, visualizaciones combinadas y proyecciones espaciales.</li>
+<li>Dejar una base narrativa clara para la etapa posterior de modelación predictiva.</li>
 </ol>
-<p>Además, se incluyen dos capítulos introductorios con el contenido conceptual que en la app Shiny aparece como <strong>Contexto, Problema, Objetivos, Marco teórico y Metodología</strong>.</p>
-<div id="panorama-del-dataset" class="section level2 hasAnchor" number="0.1">
-<h2><span class="header-section-number">0.1</span> Panorama del dataset<a href="index.html#panorama-del-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El archivo analizado contiene <strong>10,239</strong> registros, <strong>403</strong> combinaciones únicas de ubicación de evento y <strong>4,113</strong> ubicaciones únicas de estación.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a>  métrica <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Observaciones&quot;</span>, <span class="st">&quot;Ubicaciones únicas de evento&quot;</span>, <span class="st">&quot;Ubicaciones únicas de estación&quot;</span>, <span class="st">&quot;Variables&quot;</span>),</span>
-<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a>  <span class="at">valor =</span> <span class="fu">c</span>(</span>
-<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a>    scales<span class="sc">::</span><span class="fu">comma</span>(n_obs),</span>
-<span id="cb1-5"><a href="index.html#cb1-5" tabindex="-1"></a>    scales<span class="sc">::</span><span class="fu">comma</span>(n_eventos),</span>
-<span id="cb1-6"><a href="index.html#cb1-6" tabindex="-1"></a>    scales<span class="sc">::</span><span class="fu">comma</span>(n_estaciones),</span>
-<span id="cb1-7"><a href="index.html#cb1-7" tabindex="-1"></a>    <span class="fu">ncol</span>(df)</span>
-<span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a>  )</span>
-<span id="cb1-9"><a href="index.html#cb1-9" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb1-10"><a href="index.html#cb1-10" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Resumen general del conjunto de datos&quot;</span>)</span></code></pre></div>
+</div>
+<div id="alcance-del-libro" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Alcance del libro<a href="contexto-problema-y-objetivos.html#alcance-del-libro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este documento no busca reemplazar la discusión completa de modelación. Su función es <strong>ordenar el entendimiento del dataset</strong> y dejar explícitas las decisiones exploratorias que ayudan a justificar transformaciones, segmentaciones y comparaciones posteriores.</p>
+</div>
+<div id="variables-relevantes-del-problema" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Variables relevantes del problema<a href="contexto-problema-y-objetivos.html#variables-relevantes-del-problema" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="contexto-problema-y-objetivos.html#cb2-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(glosario, <span class="at">caption =</span> <span class="st">&quot;Glosario resumido de variables del dataset&quot;</span>)</span></code></pre></div>
 <table>
-<caption><span id="tab:dataset-overview">Table 0.1: </span>Resumen general del conjunto de datos</caption>
+<caption><span id="tab:tabla-glosario">Table 1.1: </span>Glosario resumido de variables del dataset</caption>
+<colgroup>
+<col width="16%" />
+<col width="6%" />
+<col width="8%" />
+<col width="12%" />
+<col width="28%" />
+<col width="28%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th align="left">métrica</th>
-<th align="left">valor</th>
+<th align="left">Variable</th>
+<th align="left">Tipo</th>
+<th align="left">Unidad_Formato</th>
+<th align="left">Rol_GMPE</th>
+<th align="left">Descripcion</th>
+<th align="left">Chequeos</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Observaciones</td>
-<td align="left">10,239</td>
+<td align="left">Hypocenter Depth (km)</td>
+<td align="left">Numérica</td>
+<td align="left">km</td>
+<td align="left">Fuente</td>
+<td align="left">Profundidad del hipocentro del sismo.</td>
+<td align="left">&gt;= 0; revisar outliers; comparar por origen.</td>
 </tr>
 <tr class="even">
-<td align="left">Ubicaciones únicas de evento</td>
-<td align="left">403</td>
+<td align="left">Magnitude</td>
+<td align="left">Numérica</td>
+<td align="left">Mw</td>
+<td align="left">Fuente</td>
+<td align="left">Magnitud del evento sísmico.</td>
+<td align="left">Rango típico aproximado entre 0 y 9; revisar nulos.</td>
 </tr>
 <tr class="odd">
-<td align="left">Ubicaciones únicas de estación</td>
-<td align="left">4,113</td>
+<td align="left">Rrup_OpenQuake</td>
+<td align="left">Numérica</td>
+<td align="left">km</td>
+<td align="left">Trayectoria</td>
+<td align="left">Distancia de ruptura fuente-sitio.</td>
+<td align="left">&gt; 0; revisar ceros y sesgo de la distribución.</td>
 </tr>
 <tr class="even">
-<td align="left">Variables</td>
-<td align="left">13</td>
+<td align="left">Soil_Class</td>
+<td align="left">Categórica</td>
+<td align="left">1 a 5</td>
+<td align="left">Sitio</td>
+<td align="left">Clasificación de suelo o condición del sitio.</td>
+<td align="left">Revisar clases únicas y balance.</td>
+</tr>
+<tr class="odd">
+<td align="left">Tmax</td>
+<td align="left">Numérica</td>
+<td align="left">s</td>
+<td align="left">Calidad / espectro</td>
+<td align="left">Periodo máximo confiable del registro.</td>
+<td align="left">Verificar rango y posibles valores extremos.</td>
+</tr>
+<tr class="even">
+<td align="left">origen</td>
+<td align="left">Categórica</td>
+<td align="left">Etiqueta</td>
+<td align="left">Metadato</td>
+<td align="left">Fuente del registro: NGAW2 o Colombia.</td>
+<td align="left">Analizar desbalance del dataset.</td>
+</tr>
+<tr class="odd">
+<td align="left">Seismic Latitude / Longitude</td>
+<td align="left">Numérica</td>
+<td align="left">grados</td>
+<td align="left">Geografía del evento</td>
+<td align="left">Ubicación del evento sísmico.</td>
+<td align="left">Validar lat/lon dentro de rangos plausibles.</td>
+</tr>
+<tr class="even">
+<td align="left">Station Latitude / Longitude</td>
+<td align="left">Numérica</td>
+<td align="left">grados</td>
+<td align="left">Geografía de estación</td>
+<td align="left">Ubicación de la estación de registro.</td>
+<td align="left">Validar lat/lon dentro de rangos plausibles.</td>
+</tr>
+<tr class="odd">
+<td align="left">T_0.01_RotD50</td>
+<td align="left">Numérica</td>
+<td align="left">ln(g)</td>
+<td align="left">Respuesta</td>
+<td align="left">Logaritmo de la aceleración espectral a T = 0.01 s.</td>
+<td align="left">Analizar tras exponenciar a escala física.</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div id="cómo-leer-este-libro" class="section level2 hasAnchor" number="0.2">
-<h2><span class="header-section-number">0.2</span> Cómo leer este libro<a href="index.html#c%C3%B3mo-leer-este-libro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Los dos primeros capítulos recogen el <strong>marco conceptual</strong> del proyecto.</li>
-<li>Los tres siguientes reproducen la lógica del <strong>Jupyter Book de EDA</strong>.</li>
-<li>El último capítulo sintetiza los hallazgos más relevantes para la tesis y para la etapa posterior de modelación.</li>
-</ul>
 
 </div>
 </div>
@@ -304,8 +390,8 @@ El foco principal es el <strong>análisis exploratorio de datos (EDA)</strong> d
           </div>
         </div>
       </div>
-
-<a href="contexto-problema-y-objetivos.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="marco-teórico-y-metodología-del-eda.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -360,6 +446,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

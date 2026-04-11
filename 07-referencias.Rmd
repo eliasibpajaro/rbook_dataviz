@@ -1,0 +1,3 @@
+# Referencias {-}
+
+Este libro usa el formato de `bookdown` y deja preparado el espacio para incorporar referencias formales del proyecto si se desea ampliar la versión final.

@@ -1,15 +1,16 @@
-book_filename: "bookdown-demo"
+book_filename: "eda-espectros-sismicos"
 language:
   ui:
-    chapter_name: "Chapter "
+    chapter_name: "Capítulo "
 delete_merged_file: true
 output_dir: "docs"
 
 rmd_files:
   - index.Rmd
-  - 01-intro.Rmd
-  - 02-literature.Rmd
-  - 03-method.Rmd
-  - 04-application.Rmd
-  - 05-summary.Rmd
-  - 06-references.Rmd
+  - 01-contexto.Rmd
+  - 02-marco_metodologia.Rmd
+  - 03-univariado.Rmd
+  - 04-bivariado.Rmd
+  - 05-multivariado.Rmd
+  - 06-conclusiones.Rmd
+  - 07-referencias.Rmd

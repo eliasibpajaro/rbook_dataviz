@@ -1,0 +1,33 @@
+# Conclusiones y observaciones finales
+
+## Hallazgos principales del EDA
+
+1. La variable `T_0.01_RotD50`, al llevarse a escala física, presenta una distribución fuertemente sesgada a la derecha.
+2. `Magnitude` y `Rrup_OpenQuake` son las variables con relación más clara con la respuesta.
+3. `Hypocenter Depth (km)` aporta información, pero su efecto aislado luce menos dominante.
+4. `Soil_Class` muestra diferencias de distribución y dispersión que justifican mantenerla como componente relevante.
+5. La variable `origen` confirma que el dataset no es homogéneo y que existe una mezcla entre subconjuntos con comportamientos potencialmente distintos.
+
+## Implicaciones para la modelación posterior
+
+A partir del EDA, quedan bien justificadas varias decisiones típicas de una etapa de modelación:
+
+- usar escalas logarítmicas o transformaciones derivadas para variables con fuerte asimetría;
+- vigilar el sesgo introducido por la mezcla de orígenes;
+- tratar `Soil_Class` como variable categórica;
+- considerar métricas y esquemas de validación robustos frente a distribuciones no normales y desbalance.
+
+## Alcance y limitaciones del libro
+
+Este libro fue diseñado para ser una base de lectura clara y reproducible del **EDA**. No incluye:
+
+- entrenamiento de modelos,
+- ajuste de hiperparámetros,
+- validación por evento,
+- ni comparación final de arquitecturas predictivas.
+
+Esos pasos pertenecen a una fase distinta del proyecto. Aquí la meta es dejar bien documentada la lógica exploratoria que sostiene esas decisiones futuras.
+
+## Cierre
+
+El resultado final es un **R bookdown** listo para integrarse al flujo de GitHub Pages del proyecto, con una estructura ordenada, narrativa técnica y código reproducible orientado al análisis exploratorio de datos sísmicos.

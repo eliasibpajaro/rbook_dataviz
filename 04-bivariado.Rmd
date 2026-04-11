@@ -1,0 +1,215 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Análisis bivariado
+
+## `T_0.01_RotD50` vs `Rrup_OpenQuake`
+
+```{r resp-vs-rrup}
+ggplot(df, aes(x = Rrup_OpenQuake, y = Sa_0_01)) +
+  geom_point(alpha = 0.15, size = 1.1, color = "#2b8cbe") +
+  scale_x_log10(labels = label_number()) +
+  scale_y_log10(labels = label_scientific()) +
+  labs(
+    title = "Sa(T=0.01 s) vs Rrup_OpenQuake",
+    x = "Rrup_OpenQuake (km)",
+    y = "Sa_0.01"
+  )
+```
+
+La nube es consistente con la lógica de atenuación: al aumentar la distancia de ruptura, la respuesta tiende a disminuir, aunque con dispersión considerable.
+
+## `T_0.01_RotD50` vs `Magnitude`
+
+```{r resp-vs-mag}
+ggplot(df, aes(x = Magnitude, y = Sa_0_01)) +
+  geom_point(alpha = 0.15, size = 1.1, color = "#2b8cbe") +
+  scale_y_log10(labels = label_scientific()) +
+  labs(
+    title = "Sa(T=0.01 s) vs Magnitude",
+    x = "Magnitude",
+    y = "Sa_0.01"
+  )
+```
+
+Se observa una tendencia positiva: magnitudes mayores suelen asociarse con respuestas espectrales mayores, aunque no de forma perfectamente determinista.
+
+## `Hypocenter Depth (km)` vs `T_0.01_RotD50`
+
+```{r resp-vs-depth}
+ggplot(df, aes(x = `Hypocenter Depth (km)`, y = Sa_0_01)) +
+  geom_point(alpha = 0.15, size = 1.1, color = "#2b8cbe") +
+  scale_y_log10(labels = label_scientific()) +
+  labs(
+    title = "Sa(T=0.01 s) vs profundidad hipocentral",
+    x = "Hypocenter Depth (km)",
+    y = "Sa_0.01"
+  )
+```
+
+En el rango dominante de profundidades no aparece una relación monotónica fuerte; la variable parece actuar más como refinamiento que como explicador principal aislado.
+
+## `Hypocenter Depth (km)` vs `Rrup_OpenQuake`
+
+```{r depth-vs-rrup}
+ggplot(df, aes(x = Rrup_OpenQuake, y = `Hypocenter Depth (km)`)) +
+  geom_point(alpha = 0.18, size = 1.1, color = "#2b8cbe") +
+  scale_x_log10(labels = label_number()) +
+  labs(
+    title = "Profundidad hipocentral vs Rrup_OpenQuake",
+    x = "Rrup_OpenQuake (km)",
+    y = "Hypocenter Depth (km)"
+  )
+```
+
+La relación entre profundidad y distancia refleja más la composición geométrica del dataset que una dependencia simple.
+
+## `T_0.01_RotD50` vs `Soil_Class`
+
+```{r resp-vs-soil}
+ggplot(df, aes(x = Soil_Class, y = T_0.01_RotD50)) +
+  geom_boxplot(
+    fill = "#4F81BD",
+    alpha = 0.85,
+    outlier.alpha = 0.25
+  ) +
+  labs(
+    title = "T_0.01_RotD50 por clase de suelo",
+    x = "Soil_Class",
+    y = "T_0.01_RotD50"
+  )
+```
+
+Las medianas y la dispersión no son idénticas entre clases, lo que sugiere que la condición de sitio está asociada al comportamiento de la respuesta.
+
+## `T_0.01_RotD50` vs `origen`
+
+```{r resp-vs-origin}
+ggplot(df, aes(x = origen, y = Sa_0_01)) +
+  geom_boxplot(
+    fill = "#4F81BD",
+    alpha = 0.85,
+    outlier.alpha = 0.20
+  ) +
+  scale_y_log10(labels = label_scientific()) +
+  labs(
+    title = "Sa(T=0.01 s) por origen",
+    x = "origen",
+    y = "Sa_0.01"
+  )
+```
+
+Los grupos por origen muestran distribuciones diferentes, lo que refuerza la necesidad de controlar el sesgo por composición del dataset.
+
+## `Magnitude` vs `Rrup_OpenQuake`
+
+```{r mag-vs-rrup}
+ggplot(df, aes(x = Rrup_OpenQuake, y = Magnitude)) +
+  geom_point(alpha = 0.16, size = 1.0, color = "#2b8cbe") +
+  scale_x_log10(labels = label_number()) +
+  labs(
+    title = "Magnitude vs Rrup_OpenQuake",
+    x = "Rrup_OpenQuake (km)",
+    y = "Magnitude"
+  )
+```
+
+## `Magnitude` vs `Hypocenter Depth (km)`
+
+```{r station-map}
+ggplot() +
+  geom_polygon(
+    data = mapa_base,
+    aes(x = long, y = lat, group = group),
+    fill = "grey95",
+    color = "grey70",
+    linewidth = 0.25
+  ) +
+  geom_point(
+    data = df,
+    aes(x = `Station Longitude`, y = `Station Latitude`, color = Soil_Class),
+    alpha = 0.55,
+    size = 1.3
+  ) +
+  coord_quickmap(xlim = xlim_map, ylim = ylim_map, expand = FALSE) +
+  labs(
+    title = "Distribución espacial de estaciones",
+    x = "Longitud",
+    y = "Latitud",
+    color = "Soil_Class"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    panel.background = element_rect(fill = "#eaf2fb", color = NA)
+  )
+```
+
+## Mapa de eventos por magnitud
+
+```{r event-map}
+ggplot() +
+  geom_polygon(
+    data = mapa_base,
+    aes(x = long, y = lat, group = group),
+    fill = "grey95",
+    color = "grey70",
+    linewidth = 0.25
+  ) +
+  geom_point(
+    data = df,
+    aes(x = `Seismic Longitude`, y = `Seismic Latitude`, color = Magnitude, size = Sa_0_01),
+    alpha = 0.45
+  ) +
+  scale_size_continuous(range = c(1, 5), guide = "none") +
+  coord_quickmap(xlim = xlim_map, ylim = ylim_map, expand = FALSE) +
+  labs(
+    title = "Distribución espacial de eventos",
+    x = "Longitud",
+    y = "Latitud",
+    color = "Magnitude"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    panel.background = element_rect(fill = "#eaf2fb", color = NA)
+  )
+```
+
+## Tablas de contingencia: `origen` vs `Soil_Class`
+
+```{r contingency}
+tab_origen_soil <- table(df$origen, df$Soil_Class)
+chi_tbl <- suppressWarnings(chisq.test(tab_origen_soil))
+
+contingency_summary <- tibble(
+  estadistico = unname(chi_tbl$statistic),
+  gl = unname(chi_tbl$parameter),
+  p_value = chi_tbl$p.value,
+  cramers_v = cramers_v(tab_origen_soil)
+)
+
+knitr::kable(as.data.frame.matrix(tab_origen_soil), caption = "Tabla de contingencia: origen vs Soil_Class")
+knitr::kable(contingency_summary, digits = 5, caption = "Prueba chi-cuadrado y tamaño de efecto")
+```
+
+```{r contingency-percentages}
+pct_by_col <- prop.table(tab_origen_soil, margin = 2)
+knitr::kable(round(pct_by_col, 3), caption = "Porcentajes por columna (origen dentro de cada Soil_Class)")
+```
+
+La prueba de chi-cuadrado evalúa independencia entre ambas variables. El tamaño de efecto mediante **Cramér's V** complementa la lectura para cuantificar la intensidad de la asociación.
+
+## Homogeneidad de varianzas por `Soil_Class`
+
+```{r levene-test}
+levene_tbl <- car::leveneTest(T_0.01_RotD50 ~ Soil_Class, data = df) |>
+  as.data.frame() |>
+  tibble::rownames_to_column("fuente")
+
+knitr::kable(levene_tbl, digits = 5, caption = "Prueba de Levene para T_0.01_RotD50 por Soil_Class")
+```
+
+La variación de la respuesta no es necesariamente homogénea entre clases de suelo. Eso también justifica un tratamiento cuidadoso de esta variable en etapas posteriores.

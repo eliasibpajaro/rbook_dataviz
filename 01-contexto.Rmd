@@ -1,0 +1,47 @@
+# Contexto, problema y objetivos
+
+## Contexto del estudio
+
+Colombia se localiza en una zona tectónicamente activa por la interacción de placas y por la complejidad del sistema andino. En ese entorno, la estimación de **aceleraciones espectrales** resulta relevante para ingeniería sismorresistente, evaluación de amenaza sísmica y desarrollo de modelos regionales de movimiento del suelo.
+
+La variable de interés en este libro es `T_0.01_RotD50`, que representa el **logaritmo natural** de la aceleración espectral para un periodo muy corto, asociado a la medida rotacional **RotD50**. A nivel aplicado, este tipo de variable sirve como insumo para:
+
+- espectros de diseño,
+- evaluación de demanda sísmica,
+- comparación entre escenarios de fuente, trayectoria y sitio,
+- exploración de regularidades antes de construir modelos predictivos.
+
+## Problema de investigación
+
+La disponibilidad de registros locales suele ser más limitada que en regiones altamente instrumentadas. Esa restricción afecta la calibración de relaciones predictivas regionales y obliga a examinar con detalle el comportamiento estadístico del conjunto de datos disponible.
+
+Desde esa perspectiva, antes de modelar conviene responder preguntas como:
+
+- ¿qué tan sesgadas están las variables?
+- ¿qué tan balanceadas están las clases categóricas?
+- ¿qué relaciones bivariadas aparecen entre magnitud, distancia, profundidad y respuesta?
+- ¿qué señales multivariadas permiten justificar transformaciones o decisiones de preprocesamiento?
+
+Este libro se concentra en esa fase: **EDA**, no en entrenamiento de modelos.
+
+## Objetivo general
+
+Construir un libro reproducible en **R bookdown** que documente y organice el análisis exploratorio del dataset sísmico utilizado en el proyecto, conservando la lógica del Jupyter Book original e incorporando el marco conceptual de la app Shiny.
+
+## Objetivos específicos
+
+1. Describir las variables relevantes del problema y el rol que cumplen dentro del análisis.
+2. Analizar la distribución individual de la variable objetivo y de las variables predictoras principales.
+3. Explorar relaciones bivariadas entre respuesta, magnitud, distancia, profundidad, clase de suelo y origen.
+4. Examinar patrones multivariados mediante correlaciones, visualizaciones combinadas y proyecciones espaciales.
+5. Dejar una base narrativa clara para la etapa posterior de modelación predictiva.
+
+## Alcance del libro
+
+Este documento no busca reemplazar la discusión completa de modelación. Su función es **ordenar el entendimiento del dataset** y dejar explícitas las decisiones exploratorias que ayudan a justificar transformaciones, segmentaciones y comparaciones posteriores.
+
+## Variables relevantes del problema
+
+```{r tabla-glosario}
+knitr::kable(glosario, caption = "Glosario resumido de variables del dataset")
+```

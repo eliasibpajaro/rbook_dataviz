@@ -1,32 +1,175 @@
---- 
-title: "A Minimal Book Example"
-author: "Yihui Xie"
-date: "`r Sys.Date()`"
+---
+title: "EDA de aceleraciones espectrales para movimientos del suelo"
+author: "Eliasib Pájaro"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
-bibliography: [book.bib, packages.bib]
-biblio-style: apalike
-link-citations: yes
-github-repo: rstudio/bookdown-demo
-description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+description: "Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny."
 ---
 
-# Prerequisites
+# Presentación {-}
 
-HOLA
+Este libro en **bookdown** reorganiza el material del proyecto en un formato de lectura continua.  
+El foco principal es el **análisis exploratorio de datos (EDA)** del conjunto `NGACOL.csv`, manteniendo la estructura conceptual del Jupyter Book original en tres bloques:
 
-```{r eval=FALSE}
-install.packages("bookdown")
-# or the development version
-# devtools::install_github("rstudio/bookdown")
+1. **Análisis univariado**
+2. **Análisis bivariado**
+3. **Análisis multivariado**
+
+Además, se incluyen dos capítulos introductorios con el contenido conceptual que en la app Shiny aparece como **Contexto, Problema, Objetivos, Marco teórico y Metodología**.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 8,
+  fig.height = 5,
+  fig.align = "center",
+  out.width = "95%"
+)
+
+required_pkgs <- c(
+  "bookdown", "knitr", "readr", "dplyr", "tidyr", "ggplot2",
+  "scales", "stringr", "tibble", "plotly", "car", "maps"
+)
+
+missing_pkgs <- required_pkgs[!vapply(required_pkgs, requireNamespace, quietly = TRUE, FUN.VALUE = logical(1))]
+if (length(missing_pkgs) > 0) {
+  stop(
+    paste0(
+      "Instala estos paquetes antes de renderizar el libro: ",
+      paste(missing_pkgs, collapse = ", ")
+    )
+  )
+}
+
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+library(stringr)
+library(tibble)
+library(plotly)
+library(car)
+library(knitr)
+library(maps)
+
+theme_set(theme_minimal(base_size = 12))
+
+data_path <- "data/NGACOL.csv"
+df <- read_csv(data_path, show_col_types = FALSE) %>%
+  mutate(
+    Soil_Class = factor(Soil_Class),
+    origen = factor(origen),
+    Sa_0_01 = exp(T_0.01_RotD50),
+    log_Rrup = log(Rrup_OpenQuake)
+  )
+lon_all <- c(df$`Station Longitude`, df$`Seismic Longitude`)
+lat_all <- c(df$`Station Latitude`, df$`Seismic Latitude`)
+
+lon_rng <- range(lon_all, na.rm = TRUE)
+lat_rng <- range(lat_all, na.rm = TRUE)
+
+pad_lon <- max(1, diff(lon_rng) * 0.08)
+pad_lat <- max(1, diff(lat_rng) * 0.08)
+
+xlim_map <- lon_rng + c(-pad_lon, pad_lon)
+ylim_map <- lat_rng + c(-pad_lat, pad_lat)
+
+mapa_base <- ggplot2::map_data("world") %>%
+  dplyr::filter(
+    long >= xlim_map[1], long <= xlim_map[2],
+    lat  >= ylim_map[1], lat  <= ylim_map[2]
+  )
+
+n_obs <- nrow(df)
+n_eventos <- n_distinct(paste(df$`Seismic Latitude`, df$`Seismic Longitude`))
+n_estaciones <- n_distinct(paste(df$`Station Latitude`, df$`Station Longitude`))
+
+glosario <- tibble::tribble(
+  ~Variable, ~Tipo, ~Unidad_Formato, ~Rol_GMPE, ~Descripcion, ~Chequeos,
+  "Hypocenter Depth (km)", "Numérica", "km", "Fuente", "Profundidad del hipocentro del sismo.", ">= 0; revisar outliers; comparar por origen.",
+  "Magnitude", "Numérica", "Mw", "Fuente", "Magnitud del evento sísmico.", "Rango típico aproximado entre 0 y 9; revisar nulos.",
+  "Rrup_OpenQuake", "Numérica", "km", "Trayectoria", "Distancia de ruptura fuente-sitio.", "> 0; revisar ceros y sesgo de la distribución.",
+  "Soil_Class", "Categórica", "1 a 5", "Sitio", "Clasificación de suelo o condición del sitio.", "Revisar clases únicas y balance.",
+  "Tmax", "Numérica", "s", "Calidad / espectro", "Periodo máximo confiable del registro.", "Verificar rango y posibles valores extremos.",
+  "origen", "Categórica", "Etiqueta", "Metadato", "Fuente del registro: NGAW2 o Colombia.", "Analizar desbalance del dataset.",
+  "Seismic Latitude / Longitude", "Numérica", "grados", "Geografía del evento", "Ubicación del evento sísmico.", "Validar lat/lon dentro de rangos plausibles.",
+  "Station Latitude / Longitude", "Numérica", "grados", "Geografía de estación", "Ubicación de la estación de registro.", "Validar lat/lon dentro de rangos plausibles.",
+  "T_0.01_RotD50", "Numérica", "ln(g)", "Respuesta", "Logaritmo de la aceleración espectral a T = 0.01 s.", "Analizar tras exponenciar a escala física."
+)
+
+num_cols <- c(
+  "Hypocenter Depth (km)", "Magnitude", "Rrup_OpenQuake", "Tmax",
+  "Seismic Latitude", "Seismic Longitude",
+  "Station Latitude", "Station Longitude", "T_0.01_RotD50"
+)
+
+cramers_v <- function(tab) {
+  chi2 <- suppressWarnings(chisq.test(tab, correct = FALSE)$statistic)
+  n <- sum(tab)
+  k <- min(nrow(tab) - 1, ncol(tab) - 1)
+  as.numeric(sqrt(chi2 / (n * k)))
+}
+
+ks_normality_table <- function(data, vars) {
+  res <- lapply(vars, function(v) {
+    x <- data[[v]]
+    x <- x[is.finite(x)]
+    x <- x[!is.na(x)]
+    if (length(unique(x)) < 2) {
+      return(data.frame(variable = v, p_value = NA_real_, conclusion = "No evaluable"))
+    }
+    x_std <- as.numeric(scale(x))
+    test <- suppressWarnings(stats::ks.test(x_std, "pnorm"))
+    data.frame(
+      variable = v,
+      p_value = unname(test$p.value),
+      conclusion = ifelse(test$p.value < 0.05, "Se rechaza normalidad", "No se rechaza normalidad")
+    )
+  })
+  bind_rows(res)
+}
+
+cont_summary <- function(data, var) {
+  x <- data[[var]]
+  tibble(
+    variable = var,
+    n = sum(!is.na(x)),
+    missing = sum(is.na(x)),
+    min = min(x, na.rm = TRUE),
+    q1 = quantile(x, 0.25, na.rm = TRUE),
+    median = median(x, na.rm = TRUE),
+    mean = mean(x, na.rm = TRUE),
+    q3 = quantile(x, 0.75, na.rm = TRUE),
+    max = max(x, na.rm = TRUE),
+    sd = sd(x, na.rm = TRUE)
+  )
+}
 ```
 
+## Panorama del dataset
 
+El archivo analizado contiene **`r scales::comma(n_obs)`** registros, **`r scales::comma(n_eventos)`** combinaciones únicas de ubicación de evento y **`r scales::comma(n_estaciones)`** ubicaciones únicas de estación.
 
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
+```{r dataset-overview}
+tibble(
+  métrica = c("Observaciones", "Ubicaciones únicas de evento", "Ubicaciones únicas de estación", "Variables"),
+  valor = c(
+    scales::comma(n_obs),
+    scales::comma(n_eventos),
+    scales::comma(n_estaciones),
+    ncol(df)
+  )
+) |>
+  knitr::kable(caption = "Resumen general del conjunto de datos")
 ```
+
+## Cómo leer este libro
+
+- Los dos primeros capítulos recogen el **marco conceptual** del proyecto.
+- Los tres siguientes reproducen la lógica del **Jupyter Book de EDA**.
+- El último capítulo sintetiza los hallazgos más relevantes para la tesis y para la etapa posterior de modelación.

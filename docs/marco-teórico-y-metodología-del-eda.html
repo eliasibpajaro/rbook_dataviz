@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>EDA de aceleraciones espectrales para movimientos del suelo</title>
+  <title>Capítulo 2 Marco teórico y metodología del EDA | EDA de aceleraciones espectrales para movimientos del suelo</title>
   <meta name="description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="EDA de aceleraciones espectrales para movimientos del suelo" />
+  <meta property="og:title" content="Capítulo 2 Marco teórico y metodología del EDA | EDA de aceleraciones espectrales para movimientos del suelo" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="EDA de aceleraciones espectrales para movimientos del suelo" />
+  <meta name="twitter:title" content="Capítulo 2 Marco teórico y metodología del EDA | EDA de aceleraciones espectrales para movimientos del suelo" />
   
   <meta name="twitter:description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="contexto-problema-y-objetivos.html"/>
+<link rel="prev" href="contexto-problema-y-objetivos.html"/>
+<link rel="next" href="análisis-univariado-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,6 +51,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.12.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -233,69 +241,104 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">EDA de aceleraciones espectrales para movimientos del suelo</h1>
-<p class="author"><em>Eliasib Pájaro</em></p>
-<p class="date"><em>10 abril 2026</em></p>
-</div>
-<div id="presentación" class="section level1 unnumbered hasAnchor">
-<h1>Presentación<a href="index.html#presentaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Este libro en <strong>bookdown</strong> reorganiza el material del proyecto en un formato de lectura continua.<br />
-El foco principal es el <strong>análisis exploratorio de datos (EDA)</strong> del conjunto <code>NGACOL.csv</code>, manteniendo la estructura conceptual del Jupyter Book original en tres bloques:</p>
-<ol style="list-style-type: decimal">
-<li><strong>Análisis univariado</strong></li>
-<li><strong>Análisis bivariado</strong></li>
-<li><strong>Análisis multivariado</strong></li>
-</ol>
-<p>Además, se incluyen dos capítulos introductorios con el contenido conceptual que en la app Shiny aparece como <strong>Contexto, Problema, Objetivos, Marco teórico y Metodología</strong>.</p>
-<div id="panorama-del-dataset" class="section level2 hasAnchor" number="0.1">
-<h2><span class="header-section-number">0.1</span> Panorama del dataset<a href="index.html#panorama-del-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El archivo analizado contiene <strong>10,239</strong> registros, <strong>403</strong> combinaciones únicas de ubicación de evento y <strong>4,113</strong> ubicaciones únicas de estación.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a>  métrica <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Observaciones&quot;</span>, <span class="st">&quot;Ubicaciones únicas de evento&quot;</span>, <span class="st">&quot;Ubicaciones únicas de estación&quot;</span>, <span class="st">&quot;Variables&quot;</span>),</span>
-<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a>  <span class="at">valor =</span> <span class="fu">c</span>(</span>
-<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a>    scales<span class="sc">::</span><span class="fu">comma</span>(n_obs),</span>
-<span id="cb1-5"><a href="index.html#cb1-5" tabindex="-1"></a>    scales<span class="sc">::</span><span class="fu">comma</span>(n_eventos),</span>
-<span id="cb1-6"><a href="index.html#cb1-6" tabindex="-1"></a>    scales<span class="sc">::</span><span class="fu">comma</span>(n_estaciones),</span>
-<span id="cb1-7"><a href="index.html#cb1-7" tabindex="-1"></a>    <span class="fu">ncol</span>(df)</span>
-<span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a>  )</span>
-<span id="cb1-9"><a href="index.html#cb1-9" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb1-10"><a href="index.html#cb1-10" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Resumen general del conjunto de datos&quot;</span>)</span></code></pre></div>
-<table>
-<caption><span id="tab:dataset-overview">Table 0.1: </span>Resumen general del conjunto de datos</caption>
-<thead>
-<tr class="header">
-<th align="left">métrica</th>
-<th align="left">valor</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Observaciones</td>
-<td align="left">10,239</td>
-</tr>
-<tr class="even">
-<td align="left">Ubicaciones únicas de evento</td>
-<td align="left">403</td>
-</tr>
-<tr class="odd">
-<td align="left">Ubicaciones únicas de estación</td>
-<td align="left">4,113</td>
-</tr>
-<tr class="even">
-<td align="left">Variables</td>
-<td align="left">13</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="cómo-leer-este-libro" class="section level2 hasAnchor" number="0.2">
-<h2><span class="header-section-number">0.2</span> Cómo leer este libro<a href="index.html#c%C3%B3mo-leer-este-libro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="marco-teórico-y-metodología-del-eda" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Capítulo 2</span> Marco teórico y metodología del EDA<a href="marco-teórico-y-metodología-del-eda.html#marco-te%C3%B3rico-y-metodolog%C3%ADa-del-eda" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="fundamento-físico-del-problema" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Fundamento físico del problema<a href="marco-teórico-y-metodología-del-eda.html#fundamento-f%C3%ADsico-del-problema" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La respuesta de un sistema de un grado de libertad sometido a movimiento de base puede expresarse como:</p>
+<p><span class="math display">\[
+\ddot{x}(t) + 2\zeta\omega_n\dot{x}(t) + \omega_n^2 x(t) = -\ddot{x}_g(t)
+\]</span></p>
+<p>donde:</p>
 <ul>
-<li>Los dos primeros capítulos recogen el <strong>marco conceptual</strong> del proyecto.</li>
-<li>Los tres siguientes reproducen la lógica del <strong>Jupyter Book de EDA</strong>.</li>
-<li>El último capítulo sintetiza los hallazgos más relevantes para la tesis y para la etapa posterior de modelación.</li>
+<li><span class="math inline">\(\zeta\)</span> es el amortiguamiento,</li>
+<li><span class="math inline">\(\omega_n\)</span> es la frecuencia natural,</li>
+<li><span class="math inline">\(\ddot{x}_g(t)\)</span> es la aceleración del suelo.</li>
 </ul>
+<p>A partir de esta formulación se construyen los <strong>espectros de respuesta</strong>, y una ordenada típica de aceleración espectral se puede resumir como:</p>
+<p><span class="math display">\[
+S_a(T,\zeta)=\max_t \left| \ddot{x}(t) + \ddot{x}_g(t) \right|
+\]</span></p>
+</div>
+<div id="rotd50-y-escala-logarítmica" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> RotD50 y escala logarítmica<a href="marco-teórico-y-metodología-del-eda.html#rotd50-y-escala-logar%C3%ADtmica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La variable objetivo del proyecto corresponde a un valor de tipo RotD50:</p>
+<p><span class="math display">\[
+\mathrm{RotD50}(T)=P_{50}\left(S_a^{(\theta)}(T)\right)
+\]</span></p>
+<p>En este libro, la respuesta observada en el dataset es:</p>
+<p><span class="math display">\[
+y = \ln \left(S_a(T = 0.01\,s)\right)
+\]</span></p>
+<p>Por eso, en varios gráficos del EDA se muestran dos niveles de lectura:</p>
+<ol style="list-style-type: decimal">
+<li><strong>escala logarítmica</strong>, que es como aparece en la base,</li>
+<li><strong>escala física</strong>, obtenida al aplicar:</li>
+</ol>
+<p><span class="math display">\[
+S_a = e^y
+\]</span></p>
+</div>
+<div id="papel-de-tmax" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Papel de <code>Tmax</code><a href="marco-teórico-y-metodología-del-eda.html#papel-de-tmax" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El dataset incluye una variable <code>Tmax</code> que resume el periodo máximo confiable para el espectro del registro. Su interpretación básica es:</p>
+<p><span class="math display">\[
+T \leq T_{\max}
+\]</span></p>
+<p>En el caso del EDA presentado aquí, <code>Tmax</code> se considera una variable descriptiva adicional, útil para entender la calidad y extensión confiable del contenido espectral.</p>
+</div>
+<div id="variables-de-entrada-más-importantes" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Variables de entrada más importantes<a href="marco-teórico-y-metodología-del-eda.html#variables-de-entrada-m%C3%A1s-importantes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para la etapa exploratoria y para la fase posterior de modelación, las variables centrales son:</p>
+<ul>
+<li><code>Magnitude</code></li>
+<li><code>Rrup_OpenQuake</code></li>
+<li><code>Hypocenter Depth (km)</code></li>
+<li><code>Soil_Class</code></li>
+<li><code>Tmax</code></li>
+<li><code>origen</code></li>
+</ul>
+<p>Estas variables representan, respectivamente, dimensiones ligadas a <strong>fuente</strong>, <strong>trayectoria</strong>, <strong>sitio</strong>, <strong>calidad/alcance espectral</strong> y <strong>procedencia del registro</strong>.</p>
+</div>
+<div id="enfoque-metodológico-del-libro" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Enfoque metodológico del libro<a href="marco-teórico-y-metodología-del-eda.html#enfoque-metodol%C3%B3gico-del-libro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Aunque la app Shiny integra secciones de comparación de modelos, este libro se restringe al <strong>EDA</strong>, organizado en tres capítulos principales:</p>
+<div id="análisis-univariado" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> 1. Análisis univariado<a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-univariado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se revisan distribución, dispersión, sesgo, presencia de valores extremos, balance de clases y pruebas simples de normalidad.</p>
+</div>
+<div id="análisis-bivariado" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> 2. Análisis bivariado<a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-bivariado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se estudian relaciones entre la respuesta <code>T_0.01_RotD50</code> y las variables de interés, además de asociaciones entre variables predictoras y entre variables categóricas.</p>
+</div>
+<div id="análisis-multivariado" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> 3. Análisis multivariado<a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-multivariado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se exploran matrices de correlación, nubes de puntos combinadas, relaciones espaciales y visualizaciones de estructura conjunta.</p>
+</div>
+</div>
+<div id="decisiones-prácticas-de-trabajo" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Decisiones prácticas de trabajo<a href="marco-teórico-y-metodología-del-eda.html#decisiones-pr%C3%A1cticas-de-trabajo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para mantener coherencia con el Jupyter Book de referencia:</p>
+<ul>
+<li>el EDA se organiza en capítulos <strong>Univariado</strong>, <strong>Bivariado</strong> y <strong>Multivariado</strong>;</li>
+<li><code>T_0.01_RotD50</code> se analiza tanto en su forma original como en escala física <code>exp(T_0.01_RotD50)</code>;</li>
+<li><code>Soil_Class</code> y <code>origen</code> se tratan como variables categóricas;</li>
+<li>se incluyen comentarios interpretativos breves después de los bloques principales;</li>
+<li>el código queda en <strong>R Markdown</strong> para que el libro pueda regenerarse y publicarse desde GitHub Pages.</li>
+</ul>
+</div>
+<div id="resumen-operativo" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Resumen operativo<a href="marco-teórico-y-metodología-del-eda.html#resumen-operativo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El flujo implementado en este libro es:</p>
+<ol style="list-style-type: decimal">
+<li>Carga del dataset.</li>
+<li>Limpieza básica y tipificación de variables.</li>
+<li>Construcción de la variable <code>Sa_0_01 = exp(T_0.01_RotD50)</code>.</li>
+<li>Visualización y resumen univariado.</li>
+<li>Exploración bivariada con escalas adecuadas.</li>
+<li>Exploración multivariada y espacial.</li>
+<li>Síntesis de hallazgos para etapas posteriores.</li>
+</ol>
 
 </div>
 </div>
@@ -304,8 +347,8 @@ El foco principal es el <strong>análisis exploratorio de datos (EDA)</strong> d
           </div>
         </div>
       </div>
-
-<a href="contexto-problema-y-objetivos.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="contexto-problema-y-objetivos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análisis-univariado-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -360,6 +403,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

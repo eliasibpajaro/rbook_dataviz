@@ -1,0 +1,138 @@
+# Análisis multivariado
+
+## Matriz de correlación de Spearman
+
+```{r spearman-corr}
+corr_df <- df |>
+  select(all_of(num_cols)) |>
+  drop_na()
+
+corr_mat <- cor(corr_df, method = "spearman")
+
+corr_long <- as.data.frame(as.table(corr_mat)) |>
+  rename(var1 = Var1, var2 = Var2, corr = Freq)
+
+ggplot(corr_long, aes(x = var1, y = var2, fill = corr)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "white", high = "#2166ac", mid = "white", midpoint = 0) +
+  labs(
+    title = "Correlación de Spearman entre variables numéricas",
+    x = NULL,
+    y = NULL,
+    fill = "rho"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r spearman-table}
+knitr::kable(round(corr_mat, 3), caption = "Matriz de correlación de Spearman")
+```
+
+La respuesta muestra asociación apreciable con magnitud y distancia de ruptura, mientras que otras variables aportan relaciones más débiles o indirectas.
+
+## Matriz de dispersión
+
+```{r scatter-matrix}
+pairs(
+  corr_df[, c("Magnitude", "Hypocenter Depth (km)", "Rrup_OpenQuake", "Tmax", "T_0.01_RotD50")],
+  pch = 19,
+  col = rgb(0, 0, 0, 0.15),
+  main = "Matriz de dispersión de variables seleccionadas"
+)
+```
+
+La matriz de dispersión permite detectar patrones no lineales, agrupamientos y escalas muy diferentes entre variables, especialmente en la distancia de ruptura.
+
+## Scatter 3D: magnitud, distancia y respuesta
+
+```{r scatter-3d}
+plot_ly(
+  data = df,
+  x = ~Rrup_OpenQuake,
+  y = ~Magnitude,
+  z = ~T_0.01_RotD50,
+  color = ~`Hypocenter Depth (km)`,
+  colors = viridisLite::viridis(256),
+  type = "scatter3d",
+  mode = "markers",
+  marker = list(size = 2.2, opacity = 0.5)
+) |>
+  layout(
+    title = "Scatter 3D de respuesta, magnitud y distancia",
+    scene = list(
+      xaxis = list(title = "Rrup_OpenQuake"),
+      yaxis = list(title = "Magnitude"),
+      zaxis = list(title = "T_0.01_RotD50")
+    )
+  )
+```
+
+## Respuesta por clases de suelo y grupos de magnitud
+
+```{r mag-groups}
+df_mag_groups <- df |>
+  mutate(
+    Mag_group = cut(
+      Magnitude,
+      breaks = c(min(Magnitude, na.rm = TRUE), 4, 5, 6, max(Magnitude, na.rm = TRUE)),
+      include.lowest = TRUE,
+      labels = c("low", "4–5", "5–6", "high")
+    )
+  )
+
+ggplot(df_mag_groups, aes(x = Soil_Class, y = T_0.01_RotD50)) +
+  geom_boxplot(
+    fill = "#4F81BD",
+    outlier.alpha = 0.2,
+    show.legend = FALSE
+  ) +
+  facet_wrap(~ Mag_group, nrow = 1) +
+  labs(
+    title = "T_0.01_RotD50 por clase de suelo y grupos de magnitud",
+    x = "Soil_Class",
+    y = "T_0.01_RotD50"
+  )
+```
+
+Este gráfico facilita ver si el efecto aparente del sitio cambia con el tamaño del evento.
+
+## Vista espacial de eventos con respuesta
+
+```{r geo-events-response}
+ggplot() +
+  geom_polygon(
+    data = mapa_base,
+    aes(x = long, y = lat, group = group),
+    fill = "grey95",
+    color = "grey70",
+    linewidth = 0.25
+  ) +
+  geom_point(
+    data = df,
+    aes(x = `Seismic Longitude`, y = `Seismic Latitude`, color = Magnitude, size = Sa_0_01),
+    alpha = 0.45
+  ) +
+  scale_size_continuous(range = c(0.8, 5)) +
+  coord_quickmap(xlim = xlim_map, ylim = ylim_map, expand = FALSE) +
+  labs(
+    title = "Eventos sísmicos: magnitud y tamaño proporcional a Sa(T = 0.01 s)",
+    x = "Longitud",
+    y = "Latitud",
+    color = "Magnitude",
+    size = "Sa_0.01"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    panel.background = element_rect(fill = "#eaf2fb", color = NA)
+  )
+```
+
+## Lectura integrada
+
+En conjunto, el análisis multivariado sugiere que:
+
+-   `Magnitude` y `Rrup_OpenQuake` concentran una porción importante de la explicación de la respuesta;
+-   la profundidad hipocentral y la clase de suelo refinan la interpretación;
+-   existen señales de mezcla entre subconjuntos del dataset, especialmente por la variable `origen`;
+-   la estructura espacial confirma que la base no corresponde a un único dominio geográfico reducido.

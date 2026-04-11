@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 Análisis univariado | EDA de aceleraciones espectrales para movimientos del suelo</title>
+  <meta name="description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 Análisis univariado | EDA de aceleraciones espectrales para movimientos del suelo" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 Análisis univariado | EDA de aceleraciones espectrales para movimientos del suelo" />
+  
+  <meta name="twitter:description" content="Libro en bookdown centrado en análisis exploratorio de datos para la variable T_0.01_RotD50, con capítulos de contexto, marco teórico y metodología tomados de la app Shiny." />
+  
+
+<meta name="author" content="Eliasib Pájaro" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="marco-teórico-y-metodología-del-eda.html"/>
+<link rel="next" href="análisis-bivariado-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.12.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EDA de espectros sísmicos</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Presentación</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#panorama-del-dataset"><i class="fa fa-check"></i><b>0.1</b> Panorama del dataset</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#c%C3%B3mo-leer-este-libro"><i class="fa fa-check"></i><b>0.2</b> Cómo leer este libro</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="contexto-problema-y-objetivos.html"><a href="contexto-problema-y-objetivos.html"><i class="fa fa-check"></i><b>1</b> Contexto, problema y objetivos</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="contexto-problema-y-objetivos.html"><a href="contexto-problema-y-objetivos.html#contexto-del-estudio"><i class="fa fa-check"></i><b>1.1</b> Contexto del estudio</a></li>
+<li class="chapter" data-level="1.2" data-path="contexto-problema-y-objetivos.html"><a href="contexto-problema-y-objetivos.html#problema-de-investigaci%C3%B3n"><i class="fa fa-check"></i><b>1.2</b> Problema de investigación</a></li>
+<li class="chapter" data-level="1.3" data-path="contexto-problema-y-objetivos.html"><a href="contexto-problema-y-objetivos.html#objetivo-general"><i class="fa fa-check"></i><b>1.3</b> Objetivo general</a></li>
+<li class="chapter" data-level="1.4" data-path="contexto-problema-y-objetivos.html"><a href="contexto-problema-y-objetivos.html#objetivos-espec%C3%ADficos"><i class="fa fa-check"></i><b>1.4</b> Objetivos específicos</a></li>
+<li class="chapter" data-level="1.5" data-path="contexto-problema-y-objetivos.html"><a href="contexto-problema-y-objetivos.html#alcance-del-libro"><i class="fa fa-check"></i><b>1.5</b> Alcance del libro</a></li>
+<li class="chapter" data-level="1.6" data-path="contexto-problema-y-objetivos.html"><a href="contexto-problema-y-objetivos.html#variables-relevantes-del-problema"><i class="fa fa-check"></i><b>1.6</b> Variables relevantes del problema</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html"><i class="fa fa-check"></i><b>2</b> Marco teórico y metodología del EDA</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#fundamento-f%C3%ADsico-del-problema"><i class="fa fa-check"></i><b>2.1</b> Fundamento físico del problema</a></li>
+<li class="chapter" data-level="2.2" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#rotd50-y-escala-logar%C3%ADtmica"><i class="fa fa-check"></i><b>2.2</b> RotD50 y escala logarítmica</a></li>
+<li class="chapter" data-level="2.3" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#papel-de-tmax"><i class="fa fa-check"></i><b>2.3</b> Papel de <code>Tmax</code></a></li>
+<li class="chapter" data-level="2.4" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#variables-de-entrada-m%C3%A1s-importantes"><i class="fa fa-check"></i><b>2.4</b> Variables de entrada más importantes</a></li>
+<li class="chapter" data-level="2.5" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#enfoque-metodol%C3%B3gico-del-libro"><i class="fa fa-check"></i><b>2.5</b> Enfoque metodológico del libro</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-univariado"><i class="fa fa-check"></i><b>2.5.1</b> 1. Análisis univariado</a></li>
+<li class="chapter" data-level="2.5.2" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-bivariado"><i class="fa fa-check"></i><b>2.5.2</b> 2. Análisis bivariado</a></li>
+<li class="chapter" data-level="2.5.3" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-multivariado"><i class="fa fa-check"></i><b>2.5.3</b> 3. Análisis multivariado</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#decisiones-pr%C3%A1cticas-de-trabajo"><i class="fa fa-check"></i><b>2.6</b> Decisiones prácticas de trabajo</a></li>
+<li class="chapter" data-level="2.7" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#resumen-operativo"><i class="fa fa-check"></i><b>2.7</b> Resumen operativo</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="análisis-univariado-1.html"><a href="análisis-univariado-1.html"><i class="fa fa-check"></i><b>3</b> Análisis univariado</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="análisis-univariado-1.html"><a href="análisis-univariado-1.html#vista-inicial-y-faltantes"><i class="fa fa-check"></i><b>3.1</b> Vista inicial y faltantes</a></li>
+<li class="chapter" data-level="3.2" data-path="análisis-univariado-1.html"><a href="análisis-univariado-1.html#variable-objetivo-t_0.01_rotd50"><i class="fa fa-check"></i><b>3.2</b> Variable objetivo: <code>T_0.01_RotD50</code></a></li>
+<li class="chapter" data-level="3.3" data-path="análisis-univariado-1.html"><a href="análisis-univariado-1.html#magnitude"><i class="fa fa-check"></i><b>3.3</b> <code>Magnitude</code></a></li>
+<li class="chapter" data-level="3.4" data-path="análisis-univariado-1.html"><a href="análisis-univariado-1.html#hypocenter-depth-km"><i class="fa fa-check"></i><b>3.4</b> <code>Hypocenter Depth (km)</code></a></li>
+<li class="chapter" data-level="3.5" data-path="análisis-univariado-1.html"><a href="análisis-univariado-1.html#rrup_openquake"><i class="fa fa-check"></i><b>3.5</b> <code>Rrup_OpenQuake</code></a></li>
+<li class="chapter" data-level="3.6" data-path="análisis-univariado-1.html"><a href="análisis-univariado-1.html#tmax"><i class="fa fa-check"></i><b>3.6</b> <code>Tmax</code></a></li>
+<li class="chapter" data-level="3.7" data-path="análisis-univariado-1.html"><a href="análisis-univariado-1.html#soil_class"><i class="fa fa-check"></i><b>3.7</b> <code>Soil_Class</code></a></li>
+<li class="chapter" data-level="3.8" data-path="análisis-univariado-1.html"><a href="análisis-univariado-1.html#estaciones-s%C3%ADsmicas-y-eventos"><i class="fa fa-check"></i><b>3.8</b> Estaciones sísmicas y eventos</a></li>
+<li class="chapter" data-level="3.9" data-path="análisis-univariado-1.html"><a href="análisis-univariado-1.html#distribuci%C3%B3n-de-origen"><i class="fa fa-check"></i><b>3.9</b> Distribución de <code>origen</code></a></li>
+<li class="chapter" data-level="3.10" data-path="análisis-univariado-1.html"><a href="análisis-univariado-1.html#pruebas-de-normalidad"><i class="fa fa-check"></i><b>3.10</b> Pruebas de normalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html"><i class="fa fa-check"></i><b>4</b> Análisis bivariado</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html#t_0.01_rotd50-vs-rrup_openquake"><i class="fa fa-check"></i><b>4.1</b> <code>T_0.01_RotD50</code> vs <code>Rrup_OpenQuake</code></a></li>
+<li class="chapter" data-level="4.2" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html#t_0.01_rotd50-vs-magnitude"><i class="fa fa-check"></i><b>4.2</b> <code>T_0.01_RotD50</code> vs <code>Magnitude</code></a></li>
+<li class="chapter" data-level="4.3" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html#hypocenter-depth-km-vs-t_0.01_rotd50"><i class="fa fa-check"></i><b>4.3</b> <code>Hypocenter Depth (km)</code> vs <code>T_0.01_RotD50</code></a></li>
+<li class="chapter" data-level="4.4" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html#hypocenter-depth-km-vs-rrup_openquake"><i class="fa fa-check"></i><b>4.4</b> <code>Hypocenter Depth (km)</code> vs <code>Rrup_OpenQuake</code></a></li>
+<li class="chapter" data-level="4.5" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html#t_0.01_rotd50-vs-soil_class"><i class="fa fa-check"></i><b>4.5</b> <code>T_0.01_RotD50</code> vs <code>Soil_Class</code></a></li>
+<li class="chapter" data-level="4.6" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html#t_0.01_rotd50-vs-origen"><i class="fa fa-check"></i><b>4.6</b> <code>T_0.01_RotD50</code> vs <code>origen</code></a></li>
+<li class="chapter" data-level="4.7" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html#magnitude-vs-rrup_openquake"><i class="fa fa-check"></i><b>4.7</b> <code>Magnitude</code> vs <code>Rrup_OpenQuake</code></a></li>
+<li class="chapter" data-level="4.8" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html#magnitude-vs-hypocenter-depth-km"><i class="fa fa-check"></i><b>4.8</b> <code>Magnitude</code> vs <code>Hypocenter Depth (km)</code></a></li>
+<li class="chapter" data-level="4.9" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html#mapa-de-eventos-por-magnitud"><i class="fa fa-check"></i><b>4.9</b> Mapa de eventos por magnitud</a></li>
+<li class="chapter" data-level="4.10" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html#tablas-de-contingencia-origen-vs-soil_class"><i class="fa fa-check"></i><b>4.10</b> Tablas de contingencia: <code>origen</code> vs <code>Soil_Class</code></a></li>
+<li class="chapter" data-level="4.11" data-path="análisis-bivariado-1.html"><a href="análisis-bivariado-1.html#homogeneidad-de-varianzas-por-soil_class"><i class="fa fa-check"></i><b>4.11</b> Homogeneidad de varianzas por <code>Soil_Class</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="análisis-multivariado-1.html"><a href="análisis-multivariado-1.html"><i class="fa fa-check"></i><b>5</b> Análisis multivariado</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="análisis-multivariado-1.html"><a href="análisis-multivariado-1.html#matriz-de-correlaci%C3%B3n-de-spearman"><i class="fa fa-check"></i><b>5.1</b> Matriz de correlación de Spearman</a></li>
+<li class="chapter" data-level="5.2" data-path="análisis-multivariado-1.html"><a href="análisis-multivariado-1.html#matriz-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>5.2</b> Matriz de dispersión</a></li>
+<li class="chapter" data-level="5.3" data-path="análisis-multivariado-1.html"><a href="análisis-multivariado-1.html#scatter-3d-magnitud-distancia-y-respuesta"><i class="fa fa-check"></i><b>5.3</b> Scatter 3D: magnitud, distancia y respuesta</a></li>
+<li class="chapter" data-level="5.4" data-path="análisis-multivariado-1.html"><a href="análisis-multivariado-1.html#respuesta-por-clases-de-suelo-y-grupos-de-magnitud"><i class="fa fa-check"></i><b>5.4</b> Respuesta por clases de suelo y grupos de magnitud</a></li>
+<li class="chapter" data-level="5.5" data-path="análisis-multivariado-1.html"><a href="análisis-multivariado-1.html#vista-espacial-de-eventos-con-respuesta"><i class="fa fa-check"></i><b>5.5</b> Vista espacial de eventos con respuesta</a></li>
+<li class="chapter" data-level="5.6" data-path="análisis-multivariado-1.html"><a href="análisis-multivariado-1.html#lectura-integrada"><i class="fa fa-check"></i><b>5.6</b> Lectura integrada</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="conclusiones-y-observaciones-finales.html"><a href="conclusiones-y-observaciones-finales.html"><i class="fa fa-check"></i><b>6</b> Conclusiones y observaciones finales</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="conclusiones-y-observaciones-finales.html"><a href="conclusiones-y-observaciones-finales.html#hallazgos-principales-del-eda"><i class="fa fa-check"></i><b>6.1</b> Hallazgos principales del EDA</a></li>
+<li class="chapter" data-level="6.2" data-path="conclusiones-y-observaciones-finales.html"><a href="conclusiones-y-observaciones-finales.html#implicaciones-para-la-modelaci%C3%B3n-posterior"><i class="fa fa-check"></i><b>6.2</b> Implicaciones para la modelación posterior</a></li>
+<li class="chapter" data-level="6.3" data-path="conclusiones-y-observaciones-finales.html"><a href="conclusiones-y-observaciones-finales.html#alcance-y-limitaciones-del-libro"><i class="fa fa-check"></i><b>6.3</b> Alcance y limitaciones del libro</a></li>
+<li class="chapter" data-level="6.4" data-path="conclusiones-y-observaciones-finales.html"><a href="conclusiones-y-observaciones-finales.html#cierre"><i class="fa fa-check"></i><b>6.4</b> Cierre</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org/" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EDA de aceleraciones espectrales para movimientos del suelo</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="análisis-univariado-1" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> Análisis univariado<a href="análisis-univariado-1.html#an%C3%A1lisis-univariado-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="vista-inicial-y-faltantes" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Vista inicial y faltantes<a href="análisis-univariado-1.html#vista-inicial-y-faltantes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="análisis-univariado-1.html#cb3-1" tabindex="-1"></a>summary_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-2"><a href="análisis-univariado-1.html#cb3-2" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">names</span>(df),</span>
+<span id="cb3-3"><a href="análisis-univariado-1.html#cb3-3" tabindex="-1"></a>  <span class="at">tipo =</span> <span class="fu">vapply</span>(df, <span class="cf">function</span>(x) <span class="fu">class</span>(x)[<span class="dv">1</span>], <span class="at">FUN.VALUE =</span> <span class="fu">character</span>(<span class="dv">1</span>)),</span>
+<span id="cb3-4"><a href="análisis-univariado-1.html#cb3-4" tabindex="-1"></a>  <span class="at">faltantes =</span> <span class="fu">vapply</span>(df, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)), <span class="at">FUN.VALUE =</span> <span class="fu">integer</span>(<span class="dv">1</span>))</span>
+<span id="cb3-5"><a href="análisis-univariado-1.html#cb3-5" tabindex="-1"></a>)</span>
+<span id="cb3-6"><a href="análisis-univariado-1.html#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="análisis-univariado-1.html#cb3-7" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(summary_tbl, <span class="at">caption =</span> <span class="st">&quot;Estructura básica y faltantes por variable&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:estructura-y-faltantes">Table 3.1: </span>Estructura básica y faltantes por variable</caption>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="left">tipo</th>
+<th align="right">faltantes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Hypocenter Depth (km)</td>
+<td align="left">numeric</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Magnitude</td>
+<td align="left">numeric</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Rrup_OpenQuake</td>
+<td align="left">numeric</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Soil_Class</td>
+<td align="left">factor</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Tmax</td>
+<td align="left">numeric</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td align="left">origen</td>
+<td align="left">factor</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Seismic Latitude</td>
+<td align="left">numeric</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Seismic Longitude</td>
+<td align="left">numeric</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Station Latitude</td>
+<td align="left">numeric</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Station Longitude</td>
+<td align="left">numeric</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">T_0.01_RotD50</td>
+<td align="left">numeric</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Sa_0_01</td>
+<td align="left">numeric</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">log_Rrup</td>
+<td align="left">numeric</td>
+<td align="right">17</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="variable-objetivo-t_0.01_rotd50" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Variable objetivo: <code>T_0.01_RotD50</code><a href="análisis-univariado-1.html#variable-objetivo-t_0.01_rotd50" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La variable de respuesta se almacena como logaritmo natural. Para facilitar la interpretación física, en esta sección se trabaja sobre <code>Sa_0_01 = exp(T_0.01_RotD50)</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="análisis-univariado-1.html#cb4-1" tabindex="-1"></a><span class="fu">cont_summary</span>(df, <span class="st">&quot;Sa_0_01&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="análisis-univariado-1.html#cb4-2" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Resumen de la variable respuesta en escala física&quot;</span>)</span></code></pre></div>
+<table style="width:100%;">
+<caption><span id="tab:objetivo-resumen">Table 3.2: </span>Resumen de la variable respuesta en escala física</caption>
+<colgroup>
+<col width="12%" />
+<col width="8%" />
+<col width="11%" />
+<col width="8%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="right">n</th>
+<th align="right">missing</th>
+<th align="right">min</th>
+<th align="right">q1</th>
+<th align="right">median</th>
+<th align="right">mean</th>
+<th align="right">q3</th>
+<th align="right">max</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sa_0_01</td>
+<td align="right">10239</td>
+<td align="right">0</td>
+<td align="right">1e-04</td>
+<td align="right">0.0053</td>
+<td align="right">0.017</td>
+<td align="right">0.0553</td>
+<td align="right">0.0566</td>
+<td align="right">1.7932</td>
+<td align="right">0.1075</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="análisis-univariado-1.html#cb5-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Sa_0_01)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="análisis-univariado-1.html#cb5-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">&quot;#2c7fb8&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="análisis-univariado-1.html#cb5-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> <span class="fu">label_scientific</span>()) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="análisis-univariado-1.html#cb5-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-5"><a href="análisis-univariado-1.html#cb5-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Histograma de Sa(T = 0.01 s) en escala física&quot;</span>,</span>
+<span id="cb5-6"><a href="análisis-univariado-1.html#cb5-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sa_0.01&quot;</span>,</span>
+<span id="cb5-7"><a href="análisis-univariado-1.html#cb5-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span></span>
+<span id="cb5-8"><a href="análisis-univariado-1.html#cb5-8" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/objetivo-hist-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="análisis-univariado-1.html#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Sa_0_01)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="análisis-univariado-1.html#cb6-2" tabindex="-1"></a>  <span class="fu">stat_ecdf</span>(<span class="at">geom =</span> <span class="st">&quot;step&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.9</span>, <span class="at">color =</span> <span class="st">&quot;#045a8d&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="análisis-univariado-1.html#cb6-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> <span class="fu">label_scientific</span>()) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="análisis-univariado-1.html#cb6-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-5"><a href="análisis-univariado-1.html#cb6-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;ECDF de Sa(T = 0.01 s)&quot;</span>,</span>
+<span id="cb6-6"><a href="análisis-univariado-1.html#cb6-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sa_0.01&quot;</span>,</span>
+<span id="cb6-7"><a href="análisis-univariado-1.html#cb6-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;F(x)&quot;</span></span>
+<span id="cb6-8"><a href="análisis-univariado-1.html#cb6-8" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/objetivo-ecdf-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="análisis-univariado-1.html#cb7-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Sa_0_01, <span class="at">y =</span> <span class="st">&quot;&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="análisis-univariado-1.html#cb7-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#2c7fb8&quot;</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="análisis-univariado-1.html#cb7-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> <span class="fu">label_scientific</span>()) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="análisis-univariado-1.html#cb7-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-5"><a href="análisis-univariado-1.html#cb7-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Boxplot de Sa(T = 0.01 s)&quot;</span>,</span>
+<span id="cb7-6"><a href="análisis-univariado-1.html#cb7-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sa_0.01&quot;</span>,</span>
+<span id="cb7-7"><a href="análisis-univariado-1.html#cb7-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span></span>
+<span id="cb7-8"><a href="análisis-univariado-1.html#cb7-8" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/objetivo-box-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<p>La distribución de la respuesta es marcadamente asimétrica hacia la derecha: la mayoría de observaciones se concentra en niveles bajos de aceleración y aparece una cola de registros con amplitudes considerablemente mayores.</p>
+</div>
+<div id="magnitude" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> <code>Magnitude</code><a href="análisis-univariado-1.html#magnitude" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="análisis-univariado-1.html#cb8-1" tabindex="-1"></a><span class="fu">cont_summary</span>(df, <span class="st">&quot;Magnitude&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="análisis-univariado-1.html#cb8-2" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Resumen de magnitud&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:magnitude-summary">Table 3.3: </span>Resumen de magnitud</caption>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="right">n</th>
+<th align="right">missing</th>
+<th align="right">min</th>
+<th align="right">q1</th>
+<th align="right">median</th>
+<th align="right">mean</th>
+<th align="right">q3</th>
+<th align="right">max</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Magnitude</td>
+<td align="right">10239</td>
+<td align="right">0</td>
+<td align="right">3.2</td>
+<td align="right">5.17</td>
+<td align="right">6.2</td>
+<td align="right">5.912</td>
+<td align="right">6.8</td>
+<td align="right">7.9</td>
+<td align="right">1.14</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="análisis-univariado-1.html#cb9-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Magnitude)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="análisis-univariado-1.html#cb9-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">35</span>, <span class="at">fill =</span> <span class="st">&quot;#2c7fb8&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="análisis-univariado-1.html#cb9-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de la magnitud&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Magnitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/magnitude-plots-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="análisis-univariado-1.html#cb10-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Magnitude)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="análisis-univariado-1.html#cb10-2" tabindex="-1"></a>  <span class="fu">stat_ecdf</span>(<span class="at">geom =</span> <span class="st">&quot;step&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.9</span>, <span class="at">color =</span> <span class="st">&quot;#2c7fb8&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="análisis-univariado-1.html#cb10-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;ECDF de magnitud&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Magnitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;F(x)&quot;</span>)</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/magnitude-ecdf-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<p>La distribución de magnitud es multimodal, consistente con un dataset integrado a partir de múltiples contextos o subconjuntos de eventos.</p>
+</div>
+<div id="hypocenter-depth-km" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> <code>Hypocenter Depth (km)</code><a href="análisis-univariado-1.html#hypocenter-depth-km" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="análisis-univariado-1.html#cb11-1" tabindex="-1"></a><span class="fu">cont_summary</span>(df, <span class="st">&quot;Hypocenter Depth (km)&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="análisis-univariado-1.html#cb11-2" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Resumen de profundidad hipocentral&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:depth-summary">Table 3.4: </span>Resumen de profundidad hipocentral</caption>
+<colgroup>
+<col width="28%" />
+<col width="7%" />
+<col width="10%" />
+<col width="7%" />
+<col width="7%" />
+<col width="8%" />
+<col width="8%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="right">n</th>
+<th align="right">missing</th>
+<th align="right">min</th>
+<th align="right">q1</th>
+<th align="right">median</th>
+<th align="right">mean</th>
+<th align="right">q3</th>
+<th align="right">max</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Hypocenter Depth (km)</td>
+<td align="right">10239</td>
+<td align="right">0</td>
+<td align="right">1.331</td>
+<td align="right">7.507</td>
+<td align="right">10</td>
+<td align="right">10.611</td>
+<td align="right">13.3</td>
+<td align="right">58.7</td>
+<td align="right">5.111</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="análisis-univariado-1.html#cb12-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Hypocenter Depth (km)</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="análisis-univariado-1.html#cb12-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">fill =</span> <span class="st">&quot;#2c7fb8&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="análisis-univariado-1.html#cb12-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de la profundidad hipocentral&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Profundidad (km)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/depth-hist-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="análisis-univariado-1.html#cb13-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Hypocenter Depth (km)</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="análisis-univariado-1.html#cb13-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#2c7fb8&quot;</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="análisis-univariado-1.html#cb13-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot de profundidad hipocentral&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Profundidad (km)&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/depth-box-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<p>La mayor parte de registros corresponde a eventos someros. La cola hacia profundidades mayores existe, pero representa una fracción claramente menor del conjunto.</p>
+</div>
+<div id="rrup_openquake" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> <code>Rrup_OpenQuake</code><a href="análisis-univariado-1.html#rrup_openquake" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="análisis-univariado-1.html#cb14-1" tabindex="-1"></a><span class="fu">cont_summary</span>(df, <span class="st">&quot;Rrup_OpenQuake&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="análisis-univariado-1.html#cb14-2" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Resumen de distancia de ruptura&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:rrup-summary">Table 3.5: </span>Resumen de distancia de ruptura</caption>
+<colgroup>
+<col width="20%" />
+<col width="8%" />
+<col width="10%" />
+<col width="9%" />
+<col width="8%" />
+<col width="9%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="right">n</th>
+<th align="right">missing</th>
+<th align="right">min</th>
+<th align="right">q1</th>
+<th align="right">median</th>
+<th align="right">mean</th>
+<th align="right">q3</th>
+<th align="right">max</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Rrup_OpenQuake</td>
+<td align="right">10239</td>
+<td align="right">0</td>
+<td align="right">-2.996</td>
+<td align="right">3.553</td>
+<td align="right">4.269</td>
+<td align="right">4.207</td>
+<td align="right">4.979</td>
+<td align="right">7.335</td>
+<td align="right">1.027</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="análisis-univariado-1.html#cb15-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Rrup_OpenQuake)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="análisis-univariado-1.html#cb15-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">&quot;#2c7fb8&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="análisis-univariado-1.html#cb15-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> <span class="fu">label_number</span>()) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="análisis-univariado-1.html#cb15-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Rrup_OpenQuake&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Rrup_OpenQuake (km)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/rrup-hist-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="análisis-univariado-1.html#cb16-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Rrup_OpenQuake)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="análisis-univariado-1.html#cb16-2" tabindex="-1"></a>  <span class="fu">stat_ecdf</span>(<span class="at">geom =</span> <span class="st">&quot;step&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.9</span>, <span class="at">color =</span> <span class="st">&quot;#2c7fb8&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="análisis-univariado-1.html#cb16-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> <span class="fu">label_number</span>()) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="análisis-univariado-1.html#cb16-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;ECDF de Rrup_OpenQuake&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Rrup_OpenQuake (km)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;F(x)&quot;</span>)</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/rrup-ecdf-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<p>La distancia de ruptura presenta una distribución fuertemente sesgada a la derecha, con abundancia de registros en distancias pequeñas y medias, y una cola de observaciones más lejanas.</p>
+</div>
+<div id="tmax" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> <code>Tmax</code><a href="análisis-univariado-1.html#tmax" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="análisis-univariado-1.html#cb17-1" tabindex="-1"></a><span class="fu">cont_summary</span>(df, <span class="st">&quot;Tmax&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="análisis-univariado-1.html#cb17-2" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Resumen de Tmax&quot;</span>)</span></code></pre></div>
+<table style="width:100%;">
+<caption><span id="tab:tmax-summary">Table 3.6: </span>Resumen de Tmax</caption>
+<colgroup>
+<col width="13%" />
+<col width="8%" />
+<col width="11%" />
+<col width="8%" />
+<col width="8%" />
+<col width="10%" />
+<col width="10%" />
+<col width="4%" />
+<col width="11%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="right">n</th>
+<th align="right">missing</th>
+<th align="right">min</th>
+<th align="right">q1</th>
+<th align="right">median</th>
+<th align="right">mean</th>
+<th align="right">q3</th>
+<th align="right">max</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Tmax</td>
+<td align="right">10204</td>
+<td align="right">35</td>
+<td align="right">0.095</td>
+<td align="right">3.478</td>
+<td align="right">8.889</td>
+<td align="right">13.212</td>
+<td align="right">20</td>
+<td align="right">133.333</td>
+<td align="right">12.732</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="análisis-univariado-1.html#cb18-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Tmax)) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="análisis-univariado-1.html#cb18-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">45</span>, <span class="at">fill =</span> <span class="st">&quot;#2c7fb8&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="análisis-univariado-1.html#cb18-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Tmax&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Tmax (s)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/tmax-hist-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<p><code>Tmax</code> se concentra en valores relativamente bajos, lo que sugiere que gran parte del dataset cuenta con un rango confiable corto o medio dentro del dominio espectral.</p>
+</div>
+<div id="soil_class" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> <code>Soil_Class</code><a href="análisis-univariado-1.html#soil_class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="análisis-univariado-1.html#cb19-1" tabindex="-1"></a>soil_counts <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="análisis-univariado-1.html#cb19-2" tabindex="-1"></a>  <span class="fu">count</span>(Soil_Class) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="análisis-univariado-1.html#cb19-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span>
+<span id="cb19-4"><a href="análisis-univariado-1.html#cb19-4" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="análisis-univariado-1.html#cb19-5" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(soil_counts, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Conteo y proporción por Soil_Class&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:soil-counts">Table 3.7: </span>Conteo y proporción por Soil_Class</caption>
+<thead>
+<tr class="header">
+<th align="left">Soil_Class</th>
+<th align="right">n</th>
+<th align="right">porcentaje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">110</td>
+<td align="right">0.011</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="right">1571</td>
+<td align="right">0.153</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="right">6053</td>
+<td align="right">0.591</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="right">2066</td>
+<td align="right">0.202</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="right">439</td>
+<td align="right">0.043</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="análisis-univariado-1.html#cb20-1" tabindex="-1"></a><span class="fu">ggplot</span>(soil_counts, <span class="fu">aes</span>(<span class="at">x =</span> Soil_Class, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="análisis-univariado-1.html#cb20-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#3182bd&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="análisis-univariado-1.html#cb20-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Frecuencia por clase de suelo&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Soil_Class&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Número de registros&quot;</span>)</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/soil-bar-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<p>La base está desbalanceada entre clases de suelo; una de las implicaciones es que las comparaciones y modelos posteriores deben interpretar con cautela las categorías menos representadas.</p>
+</div>
+<div id="estaciones-sísmicas-y-eventos" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Estaciones sísmicas y eventos<a href="análisis-univariado-1.html#estaciones-s%C3%ADsmicas-y-eventos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="análisis-univariado-1.html#cb21-1" tabindex="-1"></a>est_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb21-2"><a href="análisis-univariado-1.html#cb21-2" tabindex="-1"></a>  <span class="at">indicador =</span> <span class="fu">c</span>(<span class="st">&quot;Ubicaciones únicas de estación&quot;</span>, <span class="st">&quot;Ubicaciones únicas de evento&quot;</span>),</span>
+<span id="cb21-3"><a href="análisis-univariado-1.html#cb21-3" tabindex="-1"></a>  <span class="at">valor =</span> <span class="fu">c</span>(</span>
+<span id="cb21-4"><a href="análisis-univariado-1.html#cb21-4" tabindex="-1"></a>    <span class="fu">n_distinct</span>(<span class="fu">paste</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">Station Latitude</span><span class="st">`</span>, df<span class="sc">$</span><span class="st">`</span><span class="at">Station Longitude</span><span class="st">`</span>)),</span>
+<span id="cb21-5"><a href="análisis-univariado-1.html#cb21-5" tabindex="-1"></a>    <span class="fu">n_distinct</span>(<span class="fu">paste</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">Seismic Latitude</span><span class="st">`</span>, df<span class="sc">$</span><span class="st">`</span><span class="at">Seismic Longitude</span><span class="st">`</span>))</span>
+<span id="cb21-6"><a href="análisis-univariado-1.html#cb21-6" tabindex="-1"></a>  )</span>
+<span id="cb21-7"><a href="análisis-univariado-1.html#cb21-7" tabindex="-1"></a>)</span>
+<span id="cb21-8"><a href="análisis-univariado-1.html#cb21-8" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="análisis-univariado-1.html#cb21-9" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(est_tbl, <span class="at">caption =</span> <span class="st">&quot;Cobertura espacial básica del dataset&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:estaciones-eventos">Table 3.8: </span>Cobertura espacial básica del dataset</caption>
+<thead>
+<tr class="header">
+<th align="left">indicador</th>
+<th align="right">valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ubicaciones únicas de estación</td>
+<td align="right">4113</td>
+</tr>
+<tr class="even">
+<td align="left">Ubicaciones únicas de evento</td>
+<td align="right">403</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="distribución-de-origen" class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> Distribución de <code>origen</code><a href="análisis-univariado-1.html#distribuci%C3%B3n-de-origen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="análisis-univariado-1.html#cb22-1" tabindex="-1"></a>origin_counts <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="análisis-univariado-1.html#cb22-2" tabindex="-1"></a>  <span class="fu">count</span>(origen) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="análisis-univariado-1.html#cb22-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span>
+<span id="cb22-4"><a href="análisis-univariado-1.html#cb22-4" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="análisis-univariado-1.html#cb22-5" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(origin_counts, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Distribución por origen&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:origen-counts">Table 3.9: </span>Distribución por origen</caption>
+<thead>
+<tr class="header">
+<th align="left">origen</th>
+<th align="right">n</th>
+<th align="right">porcentaje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Colombia</td>
+<td align="right">537</td>
+<td align="right">0.052</td>
+</tr>
+<tr class="even">
+<td align="left">NGAW2</td>
+<td align="right">9702</td>
+<td align="right">0.948</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="análisis-univariado-1.html#cb23-1" tabindex="-1"></a><span class="fu">ggplot</span>(origin_counts, <span class="fu">aes</span>(<span class="at">x =</span> origen, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="análisis-univariado-1.html#cb23-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#4F81BD&quot;</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="análisis-univariado-1.html#cb23-3" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb23-4"><a href="análisis-univariado-1.html#cb23-4" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribución de registros por origen&quot;</span>,</span>
+<span id="cb23-5"><a href="análisis-univariado-1.html#cb23-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Origen&quot;</span>,</span>
+<span id="cb23-6"><a href="análisis-univariado-1.html#cb23-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Número de registros&quot;</span></span>
+<span id="cb23-7"><a href="análisis-univariado-1.html#cb23-7" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/origen-bar-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+<p>El origen del dataset no está balanceado. Ese hecho es metodológicamente importante porque cualquier resultado agregado puede reflejar más el comportamiento del grupo dominante que el del subconjunto colombiano.</p>
+</div>
+<div id="pruebas-de-normalidad" class="section level2 hasAnchor" number="3.10">
+<h2><span class="header-section-number">3.10</span> Pruebas de normalidad<a href="análisis-univariado-1.html#pruebas-de-normalidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="análisis-univariado-1.html#cb24-1" tabindex="-1"></a>normality_tbl <span class="ot">&lt;-</span> <span class="fu">ks_normality_table</span>(</span>
+<span id="cb24-2"><a href="análisis-univariado-1.html#cb24-2" tabindex="-1"></a>  df,</span>
+<span id="cb24-3"><a href="análisis-univariado-1.html#cb24-3" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;Hypocenter Depth (km)&quot;</span>, <span class="st">&quot;Magnitude&quot;</span>, <span class="st">&quot;Rrup_OpenQuake&quot;</span>, <span class="st">&quot;Tmax&quot;</span>, <span class="st">&quot;T_0.01_RotD50&quot;</span>)</span>
+<span id="cb24-4"><a href="análisis-univariado-1.html#cb24-4" tabindex="-1"></a>)</span>
+<span id="cb24-5"><a href="análisis-univariado-1.html#cb24-5" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="análisis-univariado-1.html#cb24-6" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(normality_tbl, <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">caption =</span> <span class="st">&quot;Pruebas KS sobre variables estandarizadas&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:normality-tests">Table 3.10: </span>Pruebas KS sobre variables estandarizadas</caption>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="right">p_value</th>
+<th align="left">conclusion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Hypocenter Depth (km)</td>
+<td align="right">0.00000</td>
+<td align="left">Se rechaza normalidad</td>
+</tr>
+<tr class="even">
+<td align="left">Magnitude</td>
+<td align="right">0.00000</td>
+<td align="left">Se rechaza normalidad</td>
+</tr>
+<tr class="odd">
+<td align="left">Rrup_OpenQuake</td>
+<td align="right">0.00000</td>
+<td align="left">Se rechaza normalidad</td>
+</tr>
+<tr class="even">
+<td align="left">Tmax</td>
+<td align="right">0.00000</td>
+<td align="left">Se rechaza normalidad</td>
+</tr>
+<tr class="odd">
+<td align="left">T_0.01_RotD50</td>
+<td align="right">0.00044</td>
+<td align="left">Se rechaza normalidad</td>
+</tr>
+</tbody>
+</table>
+<p>Como ocurre con frecuencia en bases sísmicas y en muestras grandes, la evidencia apunta a distribuciones no normales en varias de las variables numéricas principales. Eso respalda el uso de visualizaciones robustas, escalas logarítmicas y medidas no paramétricas en el resto del EDA.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="marco-teórico-y-metodología-del-eda.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análisis-bivariado-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": {},
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

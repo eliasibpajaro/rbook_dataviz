@@ -1,5 +1,47 @@
-[![Build Status](https://travis-ci.com/rstudio/bookdown-demo.svg?branch=master)](https://travis-ci.com/rstudio/bookdown-demo)
+# R bookdown — EDA de espectros sísmicos
 
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). Please see the page "[Get Started](https://bookdown.org/yihui/bookdown/get-started.html)" at https://bookdown.org/yihui/bookdown/ for how to compile this example into HTML. You may generate a copy of the book in `bookdown::pdf_book` format by calling `bookdown::render_book('index.Rmd', 'bookdown::pdf_book')`. More detailed instructions are available here https://bookdown.org/yihui/bookdown/build-the-book.html.
+Este repositorio quedó reorganizado para que el libro se centre en:
 
-You can find the preview of this example at https://bookdown.org/yihui/bookdown-demo/.
+- Contexto, problema y objetivos
+- Marco teórico y metodología del EDA
+- Análisis univariado
+- Análisis bivariado
+- Análisis multivariado
+- Conclusiones
+
+## Estructura esperada
+
+- `index.Rmd`: portada y configuración base
+- `01-contexto.Rmd`
+- `02-marco_metodologia.Rmd`
+- `03-univariado.Rmd`
+- `04-bivariado.Rmd`
+- `05-multivariado.Rmd`
+- `06-conclusiones.Rmd`
+- `07-referencias.Rmd`
+- `data/NGACOL.csv`
+
+## Cómo renderizar localmente
+
+```r
+install.packages(c(
+  "bookdown", "knitr", "readr", "dplyr", "tidyr", "ggplot2",
+  "scales", "stringr", "tibble", "plotly", "car"
+))
+
+bookdown::render_book("index.Rmd", "bookdown::gitbook")
+```
+
+El resultado se genera en la carpeta `docs/`, que es la que normalmente se publica en GitHub Pages.
+
+## Publicar en GitHub
+
+Después de renderizar:
+
+```bash
+git add .
+git commit -m "Actualiza R book con EDA y marco teórico"
+git push origin main
+```
+
+Si GitHub Pages está configurado para publicar desde `main/docs`, la versión nueva del libro quedará lista al terminar el push.

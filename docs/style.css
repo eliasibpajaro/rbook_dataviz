@@ -1,14 +1,26 @@
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.book .book-summary {
+  background: #f6f8fb;
+}
+
+.book .book-summary ul.summary li a,
+.book .book-summary ul.summary li span {
+  color: #1f2d3d;
+}
+
+.book .book-summary ul.summary li.active > a {
+  color: #1f4e79;
+  font-weight: 700;
+}
+
+h1, h2, h3 {
+  color: #1f4e79;
+}
+
 p.caption {
-  color: #777;
-  margin-top: 10px;
-}
-p code {
-  white-space: inherit;
-}
-pre {
-  word-break: normal;
-  word-wrap: normal;
-}
-pre code {
-  white-space: inherit;
+  color: #5f7288;
+  font-size: 0.92em;
 }
