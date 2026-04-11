@@ -17,7 +17,6 @@ El foco principal es el **análisis exploratorio de datos (EDA)** del conjunto `
 2. **Análisis bivariado**
 3. **Análisis multivariado**
 
-Además, se incluyen dos capítulos introductorios con el contenido conceptual que en la app Shiny aparece como **Contexto, Problema, Objetivos, Marco teórico y Metodología**.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(

@@ -21,7 +21,7 @@ cont_summary(df, "Sa_0_01") |>
   knitr::kable(digits = 4, caption = "Resumen de la variable respuesta en escala física")
 ```
 
-```{r objetivo-hist}
+```{r objetivo-hist-log}
 ggplot(df, aes(x = Sa_0_01)) +
   geom_histogram(bins = 50, fill = "#2c7fb8", color = "white") +
   scale_x_log10(labels = label_scientific()) +
@@ -54,7 +54,17 @@ ggplot(df, aes(x = Sa_0_01, y = "")) +
   )
 ```
 
-La distribución de la respuesta es marcadamente asimétrica hacia la derecha: la mayoría de observaciones se concentra en niveles bajos de aceleración y aparece una cola de registros con amplitudes considerablemente mayores.
+La distribución de la respuesta es marcadamente asimétrica hacia la derecha: la mayoría de observaciones se concentra en niveles bajos de aceleración y aparece una cola de registros con amplitudes considerablemente mayores. En las gráficas logra apreciarse la conclusión al ver la escala del eje de las X, ya que este está en log. Si no estuviese mostraría el sesgo.
+
+```{r objetivo-hist}
+ggplot(df, aes(x = Sa_0_01)) +
+  geom_histogram(bins = 50, fill = "#2c7fb8", color = "white") +
+  labs(
+    title = "Histograma de Sa(T = 0.01 s)",
+    x = "Sa_0.01",
+    y = "Frecuencia"
+  )
+```
 
 ## `Magnitude`
 
@@ -100,26 +110,34 @@ La mayor parte de registros corresponde a eventos someros. La cola hacia profund
 
 ## `Rrup_OpenQuake`
 
+La variable `Rrup_OpenQuake` se encuentra almacenada en escala logarítmica natural. Por tanto, las siguientes visualizaciones describen la distribución de `ln(Rrup)` y no la distancia física original en kilómetros.
+
 ```{r rrup-summary}
 cont_summary(df, "Rrup_OpenQuake") |>
-  knitr::kable(digits = 3, caption = "Resumen de distancia de ruptura")
+  knitr::kable(digits = 3, caption = "Resumen de ln(Rrup)")
 ```
 
 ```{r rrup-hist}
 ggplot(df, aes(x = Rrup_OpenQuake)) +
   geom_histogram(bins = 50, fill = "#2c7fb8", color = "white") +
-  scale_x_log10(labels = label_number()) +
-  labs(title = "Distribución de Rrup_OpenQuake", x = "Rrup_OpenQuake (km)", y = "Frecuencia")
+  labs(
+    title = "Distribución de ln(Rrup_OpenQuake)",
+    x = "ln(Rrup_OpenQuake)",
+    y = "Frecuencia"
+  )
 ```
 
 ```{r rrup-ecdf}
 ggplot(df, aes(x = Rrup_OpenQuake)) +
   stat_ecdf(geom = "step", linewidth = 0.9, color = "#2c7fb8") +
-  scale_x_log10(labels = label_number()) +
-  labs(title = "ECDF de Rrup_OpenQuake", x = "Rrup_OpenQuake (km)", y = "F(x)")
+  labs(
+    title = "ECDF de ln(Rrup_OpenQuake)",
+    x = "ln(Rrup_OpenQuake)",
+    y = "F(x)"
+  )
 ```
 
-La distancia de ruptura presenta una distribución fuertemente sesgada a la derecha, con abundancia de registros en distancias pequeñas y medias, y una cola de observaciones más lejanas.
+En la escala logarítmica almacenada, Rrup_OpenQuake presenta mayor concentración en valores relativamente altos de ln(Rrup) y una cola hacia valores bajos, lo que corresponde a una asimetría hacia la izquierda en esta escala. Esta forma es consistente con una compresión de las distancias grandes y una expansión relativa de las distancias pequeñas producida por la transformación logarítmica.
 
 ## `Tmax`
 

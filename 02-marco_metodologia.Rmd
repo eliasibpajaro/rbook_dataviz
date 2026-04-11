@@ -68,17 +68,17 @@ Estas variables representan, respectivamente, dimensiones ligadas a **fuente**, 
 
 ## Enfoque metodológico del libro
 
-Aunque la app Shiny integra secciones de comparación de modelos, este libro se restringe al **EDA**, organizado en tres capítulos principales:
+Este libro se restringe al **EDA**, organizado en tres capítulos principales:
 
-### 1. Análisis univariado
+### Análisis univariado
 
 Se revisan distribución, dispersión, sesgo, presencia de valores extremos, balance de clases y pruebas simples de normalidad.
 
-### 2. Análisis bivariado
+### Análisis bivariado
 
 Se estudian relaciones entre la respuesta `T_0.01_RotD50` y las variables de interés, además de asociaciones entre variables predictoras y entre variables categóricas.
 
-### 3. Análisis multivariado
+### Análisis multivariado
 
 Se exploran matrices de correlación, nubes de puntos combinadas, relaciones espaciales y visualizaciones de estructura conjunta.
 

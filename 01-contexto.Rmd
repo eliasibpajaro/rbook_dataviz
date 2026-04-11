@@ -26,7 +26,7 @@ Este libro se concentra en esa fase: **EDA**, no en entrenamiento de modelos.
 
 ## Objetivo general
 
-Construir un libro reproducible en **R bookdown** que documente y organice el análisis exploratorio del dataset sísmico utilizado en el proyecto, conservando la lógica del Jupyter Book original e incorporando el marco conceptual de la app Shiny.
+Construir un libro reproducible en **R bookdown** que documente y organice el análisis exploratorio del dataset sísmico utilizado en el proyecto, conservando la lógica del Jupyter Book original.
 
 ## Objetivos específicos
 

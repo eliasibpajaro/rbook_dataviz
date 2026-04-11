@@ -170,9 +170,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#variables-de-entrada-m%C3%A1s-importantes"><i class="fa fa-check"></i><b>2.4</b> Variables de entrada más importantes</a></li>
 <li class="chapter" data-level="2.5" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#enfoque-metodol%C3%B3gico-del-libro"><i class="fa fa-check"></i><b>2.5</b> Enfoque metodológico del libro</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-univariado"><i class="fa fa-check"></i><b>2.5.1</b> 1. Análisis univariado</a></li>
-<li class="chapter" data-level="2.5.2" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-bivariado"><i class="fa fa-check"></i><b>2.5.2</b> 2. Análisis bivariado</a></li>
-<li class="chapter" data-level="2.5.3" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-multivariado"><i class="fa fa-check"></i><b>2.5.3</b> 3. Análisis multivariado</a></li>
+<li class="chapter" data-level="2.5.1" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-univariado"><i class="fa fa-check"></i><b>2.5.1</b> Análisis univariado</a></li>
+<li class="chapter" data-level="2.5.2" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-bivariado"><i class="fa fa-check"></i><b>2.5.2</b> Análisis bivariado</a></li>
+<li class="chapter" data-level="2.5.3" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#an%C3%A1lisis-multivariado"><i class="fa fa-check"></i><b>2.5.3</b> Análisis multivariado</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#decisiones-pr%C3%A1cticas-de-trabajo"><i class="fa fa-check"></i><b>2.6</b> Decisiones prácticas de trabajo</a></li>
 <li class="chapter" data-level="2.7" data-path="marco-teórico-y-metodología-del-eda.html"><a href="marco-teórico-y-metodología-del-eda.html#resumen-operativo"><i class="fa fa-check"></i><b>2.7</b> Resumen operativo</a></li>
@@ -245,134 +245,104 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Capítulo 4</span> Análisis bivariado<a href="análisis-bivariado-1.html#an%C3%A1lisis-bivariado-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="t_0.01_rotd50-vs-rrup_openquake" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> <code>T_0.01_RotD50</code> vs <code>Rrup_OpenQuake</code><a href="análisis-bivariado-1.html#t_0.01_rotd50-vs-rrup_openquake" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="análisis-bivariado-1.html#cb25-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Rrup_OpenQuake, <span class="at">y =</span> Sa_0_01)) <span class="sc">+</span></span>
-<span id="cb25-2"><a href="análisis-bivariado-1.html#cb25-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">color =</span> <span class="st">&quot;#2b8cbe&quot;</span>) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="análisis-bivariado-1.html#cb25-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> <span class="fu">label_number</span>()) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="análisis-bivariado-1.html#cb25-4" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> <span class="fu">label_scientific</span>()) <span class="sc">+</span></span>
-<span id="cb25-5"><a href="análisis-bivariado-1.html#cb25-5" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb25-6"><a href="análisis-bivariado-1.html#cb25-6" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Sa(T=0.01 s) vs Rrup_OpenQuake&quot;</span>,</span>
-<span id="cb25-7"><a href="análisis-bivariado-1.html#cb25-7" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Rrup_OpenQuake (km)&quot;</span>,</span>
-<span id="cb25-8"><a href="análisis-bivariado-1.html#cb25-8" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Sa_0.01&quot;</span></span>
-<span id="cb25-9"><a href="análisis-bivariado-1.html#cb25-9" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="análisis-bivariado-1.html#cb26-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Rrup_OpenQuake, <span class="at">y =</span> Sa_0_01)) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="análisis-bivariado-1.html#cb26-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">color =</span> <span class="st">&quot;#2b8cbe&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="análisis-bivariado-1.html#cb26-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> <span class="fu">label_number</span>()) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="análisis-bivariado-1.html#cb26-4" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> <span class="fu">label_scientific</span>()) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="análisis-bivariado-1.html#cb26-5" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-6"><a href="análisis-bivariado-1.html#cb26-6" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Sa(T=0.01 s) vs Rrup_OpenQuake&quot;</span>,</span>
+<span id="cb26-7"><a href="análisis-bivariado-1.html#cb26-7" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Rrup_OpenQuake (km)&quot;</span>,</span>
+<span id="cb26-8"><a href="análisis-bivariado-1.html#cb26-8" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Sa_0.01&quot;</span></span>
+<span id="cb26-9"><a href="análisis-bivariado-1.html#cb26-9" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="eda-espectros-sismicos_files/figure-html/resp-vs-rrup-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
 <p>La nube es consistente con la lógica de atenuación: al aumentar la distancia de ruptura, la respuesta tiende a disminuir, aunque con dispersión considerable.</p>
 </div>
 <div id="t_0.01_rotd50-vs-magnitude" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> <code>T_0.01_RotD50</code> vs <code>Magnitude</code><a href="análisis-bivariado-1.html#t_0.01_rotd50-vs-magnitude" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="análisis-bivariado-1.html#cb26-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Magnitude, <span class="at">y =</span> Sa_0_01)) <span class="sc">+</span></span>
-<span id="cb26-2"><a href="análisis-bivariado-1.html#cb26-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">color =</span> <span class="st">&quot;#2b8cbe&quot;</span>) <span class="sc">+</span></span>
-<span id="cb26-3"><a href="análisis-bivariado-1.html#cb26-3" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> <span class="fu">label_scientific</span>()) <span class="sc">+</span></span>
-<span id="cb26-4"><a href="análisis-bivariado-1.html#cb26-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb26-5"><a href="análisis-bivariado-1.html#cb26-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Sa(T=0.01 s) vs Magnitude&quot;</span>,</span>
-<span id="cb26-6"><a href="análisis-bivariado-1.html#cb26-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Magnitude&quot;</span>,</span>
-<span id="cb26-7"><a href="análisis-bivariado-1.html#cb26-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Sa_0.01&quot;</span></span>
-<span id="cb26-8"><a href="análisis-bivariado-1.html#cb26-8" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="análisis-bivariado-1.html#cb27-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Magnitude, <span class="at">y =</span> Sa_0_01)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="análisis-bivariado-1.html#cb27-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">color =</span> <span class="st">&quot;#2b8cbe&quot;</span>) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="análisis-bivariado-1.html#cb27-3" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> <span class="fu">label_scientific</span>()) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="análisis-bivariado-1.html#cb27-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb27-5"><a href="análisis-bivariado-1.html#cb27-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Sa(T=0.01 s) vs Magnitude&quot;</span>,</span>
+<span id="cb27-6"><a href="análisis-bivariado-1.html#cb27-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Magnitude&quot;</span>,</span>
+<span id="cb27-7"><a href="análisis-bivariado-1.html#cb27-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Sa_0.01&quot;</span></span>
+<span id="cb27-8"><a href="análisis-bivariado-1.html#cb27-8" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="eda-espectros-sismicos_files/figure-html/resp-vs-mag-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
 <p>Se observa una tendencia positiva: magnitudes mayores suelen asociarse con respuestas espectrales mayores, aunque no de forma perfectamente determinista.</p>
 </div>
 <div id="hypocenter-depth-km-vs-t_0.01_rotd50" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> <code>Hypocenter Depth (km)</code> vs <code>T_0.01_RotD50</code><a href="análisis-bivariado-1.html#hypocenter-depth-km-vs-t_0.01_rotd50" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="análisis-bivariado-1.html#cb27-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Hypocenter Depth (km)</span><span class="st">`</span>, <span class="at">y =</span> Sa_0_01)) <span class="sc">+</span></span>
-<span id="cb27-2"><a href="análisis-bivariado-1.html#cb27-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">color =</span> <span class="st">&quot;#2b8cbe&quot;</span>) <span class="sc">+</span></span>
-<span id="cb27-3"><a href="análisis-bivariado-1.html#cb27-3" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> <span class="fu">label_scientific</span>()) <span class="sc">+</span></span>
-<span id="cb27-4"><a href="análisis-bivariado-1.html#cb27-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb27-5"><a href="análisis-bivariado-1.html#cb27-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Sa(T=0.01 s) vs profundidad hipocentral&quot;</span>,</span>
-<span id="cb27-6"><a href="análisis-bivariado-1.html#cb27-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Hypocenter Depth (km)&quot;</span>,</span>
-<span id="cb27-7"><a href="análisis-bivariado-1.html#cb27-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Sa_0.01&quot;</span></span>
-<span id="cb27-8"><a href="análisis-bivariado-1.html#cb27-8" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="análisis-bivariado-1.html#cb28-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Hypocenter Depth (km)</span><span class="st">`</span>, <span class="at">y =</span> Sa_0_01)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="análisis-bivariado-1.html#cb28-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">color =</span> <span class="st">&quot;#2b8cbe&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="análisis-bivariado-1.html#cb28-3" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> <span class="fu">label_scientific</span>()) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="análisis-bivariado-1.html#cb28-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb28-5"><a href="análisis-bivariado-1.html#cb28-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Sa(T=0.01 s) vs profundidad hipocentral&quot;</span>,</span>
+<span id="cb28-6"><a href="análisis-bivariado-1.html#cb28-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Hypocenter Depth (km)&quot;</span>,</span>
+<span id="cb28-7"><a href="análisis-bivariado-1.html#cb28-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Sa_0.01&quot;</span></span>
+<span id="cb28-8"><a href="análisis-bivariado-1.html#cb28-8" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="eda-espectros-sismicos_files/figure-html/resp-vs-depth-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
 <p>En el rango dominante de profundidades no aparece una relación monotónica fuerte; la variable parece actuar más como refinamiento que como explicador principal aislado.</p>
 </div>
 <div id="hypocenter-depth-km-vs-rrup_openquake" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> <code>Hypocenter Depth (km)</code> vs <code>Rrup_OpenQuake</code><a href="análisis-bivariado-1.html#hypocenter-depth-km-vs-rrup_openquake" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="análisis-bivariado-1.html#cb28-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Rrup_OpenQuake, <span class="at">y =</span> <span class="st">`</span><span class="at">Hypocenter Depth (km)</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb28-2"><a href="análisis-bivariado-1.html#cb28-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.18</span>, <span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">color =</span> <span class="st">&quot;#2b8cbe&quot;</span>) <span class="sc">+</span></span>
-<span id="cb28-3"><a href="análisis-bivariado-1.html#cb28-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> <span class="fu">label_number</span>()) <span class="sc">+</span></span>
-<span id="cb28-4"><a href="análisis-bivariado-1.html#cb28-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb28-5"><a href="análisis-bivariado-1.html#cb28-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Profundidad hipocentral vs Rrup_OpenQuake&quot;</span>,</span>
-<span id="cb28-6"><a href="análisis-bivariado-1.html#cb28-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Rrup_OpenQuake (km)&quot;</span>,</span>
-<span id="cb28-7"><a href="análisis-bivariado-1.html#cb28-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Hypocenter Depth (km)&quot;</span></span>
-<span id="cb28-8"><a href="análisis-bivariado-1.html#cb28-8" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="análisis-bivariado-1.html#cb29-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Rrup_OpenQuake, <span class="at">y =</span> <span class="st">`</span><span class="at">Hypocenter Depth (km)</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="análisis-bivariado-1.html#cb29-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.18</span>, <span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">color =</span> <span class="st">&quot;#2b8cbe&quot;</span>) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="análisis-bivariado-1.html#cb29-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> <span class="fu">label_number</span>()) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="análisis-bivariado-1.html#cb29-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-5"><a href="análisis-bivariado-1.html#cb29-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Profundidad hipocentral vs Rrup_OpenQuake&quot;</span>,</span>
+<span id="cb29-6"><a href="análisis-bivariado-1.html#cb29-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Rrup_OpenQuake (km)&quot;</span>,</span>
+<span id="cb29-7"><a href="análisis-bivariado-1.html#cb29-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Hypocenter Depth (km)&quot;</span></span>
+<span id="cb29-8"><a href="análisis-bivariado-1.html#cb29-8" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="eda-espectros-sismicos_files/figure-html/depth-vs-rrup-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
 <p>La relación entre profundidad y distancia refleja más la composición geométrica del dataset que una dependencia simple.</p>
 </div>
 <div id="t_0.01_rotd50-vs-soil_class" class="section level2 hasAnchor" number="4.5">
 <h2><span class="header-section-number">4.5</span> <code>T_0.01_RotD50</code> vs <code>Soil_Class</code><a href="análisis-bivariado-1.html#t_0.01_rotd50-vs-soil_class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="análisis-bivariado-1.html#cb29-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Soil_Class, <span class="at">y =</span> T_0<span class="fl">.01</span>_RotD50)) <span class="sc">+</span></span>
-<span id="cb29-2"><a href="análisis-bivariado-1.html#cb29-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
-<span id="cb29-3"><a href="análisis-bivariado-1.html#cb29-3" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;#4F81BD&quot;</span>,</span>
-<span id="cb29-4"><a href="análisis-bivariado-1.html#cb29-4" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.85</span>,</span>
-<span id="cb29-5"><a href="análisis-bivariado-1.html#cb29-5" tabindex="-1"></a>    <span class="at">outlier.alpha =</span> <span class="fl">0.25</span></span>
-<span id="cb29-6"><a href="análisis-bivariado-1.html#cb29-6" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb29-7"><a href="análisis-bivariado-1.html#cb29-7" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb29-8"><a href="análisis-bivariado-1.html#cb29-8" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;T_0.01_RotD50 por clase de suelo&quot;</span>,</span>
-<span id="cb29-9"><a href="análisis-bivariado-1.html#cb29-9" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Soil_Class&quot;</span>,</span>
-<span id="cb29-10"><a href="análisis-bivariado-1.html#cb29-10" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;T_0.01_RotD50&quot;</span></span>
-<span id="cb29-11"><a href="análisis-bivariado-1.html#cb29-11" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="análisis-bivariado-1.html#cb30-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Soil_Class, <span class="at">y =</span> T_0<span class="fl">.01</span>_RotD50)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="análisis-bivariado-1.html#cb30-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb30-3"><a href="análisis-bivariado-1.html#cb30-3" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;#4F81BD&quot;</span>,</span>
+<span id="cb30-4"><a href="análisis-bivariado-1.html#cb30-4" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.85</span>,</span>
+<span id="cb30-5"><a href="análisis-bivariado-1.html#cb30-5" tabindex="-1"></a>    <span class="at">outlier.alpha =</span> <span class="fl">0.25</span></span>
+<span id="cb30-6"><a href="análisis-bivariado-1.html#cb30-6" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-7"><a href="análisis-bivariado-1.html#cb30-7" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb30-8"><a href="análisis-bivariado-1.html#cb30-8" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;T_0.01_RotD50 por clase de suelo&quot;</span>,</span>
+<span id="cb30-9"><a href="análisis-bivariado-1.html#cb30-9" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Soil_Class&quot;</span>,</span>
+<span id="cb30-10"><a href="análisis-bivariado-1.html#cb30-10" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;T_0.01_RotD50&quot;</span></span>
+<span id="cb30-11"><a href="análisis-bivariado-1.html#cb30-11" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="eda-espectros-sismicos_files/figure-html/resp-vs-soil-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
 <p>Las medianas y la dispersión no son idénticas entre clases, lo que sugiere que la condición de sitio está asociada al comportamiento de la respuesta.</p>
 </div>
 <div id="t_0.01_rotd50-vs-origen" class="section level2 hasAnchor" number="4.6">
 <h2><span class="header-section-number">4.6</span> <code>T_0.01_RotD50</code> vs <code>origen</code><a href="análisis-bivariado-1.html#t_0.01_rotd50-vs-origen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="análisis-bivariado-1.html#cb30-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> origen, <span class="at">y =</span> Sa_0_01)) <span class="sc">+</span></span>
-<span id="cb30-2"><a href="análisis-bivariado-1.html#cb30-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
-<span id="cb30-3"><a href="análisis-bivariado-1.html#cb30-3" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;#4F81BD&quot;</span>,</span>
-<span id="cb30-4"><a href="análisis-bivariado-1.html#cb30-4" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.85</span>,</span>
-<span id="cb30-5"><a href="análisis-bivariado-1.html#cb30-5" tabindex="-1"></a>    <span class="at">outlier.alpha =</span> <span class="fl">0.20</span></span>
-<span id="cb30-6"><a href="análisis-bivariado-1.html#cb30-6" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb30-7"><a href="análisis-bivariado-1.html#cb30-7" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> <span class="fu">label_scientific</span>()) <span class="sc">+</span></span>
-<span id="cb30-8"><a href="análisis-bivariado-1.html#cb30-8" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb30-9"><a href="análisis-bivariado-1.html#cb30-9" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Sa(T=0.01 s) por origen&quot;</span>,</span>
-<span id="cb30-10"><a href="análisis-bivariado-1.html#cb30-10" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;origen&quot;</span>,</span>
-<span id="cb30-11"><a href="análisis-bivariado-1.html#cb30-11" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Sa_0.01&quot;</span></span>
-<span id="cb30-12"><a href="análisis-bivariado-1.html#cb30-12" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="análisis-bivariado-1.html#cb31-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> origen, <span class="at">y =</span> Sa_0_01)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="análisis-bivariado-1.html#cb31-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb31-3"><a href="análisis-bivariado-1.html#cb31-3" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;#4F81BD&quot;</span>,</span>
+<span id="cb31-4"><a href="análisis-bivariado-1.html#cb31-4" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.85</span>,</span>
+<span id="cb31-5"><a href="análisis-bivariado-1.html#cb31-5" tabindex="-1"></a>    <span class="at">outlier.alpha =</span> <span class="fl">0.20</span></span>
+<span id="cb31-6"><a href="análisis-bivariado-1.html#cb31-6" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="análisis-bivariado-1.html#cb31-7" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> <span class="fu">label_scientific</span>()) <span class="sc">+</span></span>
+<span id="cb31-8"><a href="análisis-bivariado-1.html#cb31-8" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb31-9"><a href="análisis-bivariado-1.html#cb31-9" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Sa(T=0.01 s) por origen&quot;</span>,</span>
+<span id="cb31-10"><a href="análisis-bivariado-1.html#cb31-10" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;origen&quot;</span>,</span>
+<span id="cb31-11"><a href="análisis-bivariado-1.html#cb31-11" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Sa_0.01&quot;</span></span>
+<span id="cb31-12"><a href="análisis-bivariado-1.html#cb31-12" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="eda-espectros-sismicos_files/figure-html/resp-vs-origin-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
 <p>Los grupos por origen muestran distribuciones diferentes, lo que refuerza la necesidad de controlar el sesgo por composición del dataset.</p>
 </div>
 <div id="magnitude-vs-rrup_openquake" class="section level2 hasAnchor" number="4.7">
 <h2><span class="header-section-number">4.7</span> <code>Magnitude</code> vs <code>Rrup_OpenQuake</code><a href="análisis-bivariado-1.html#magnitude-vs-rrup_openquake" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="análisis-bivariado-1.html#cb31-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Rrup_OpenQuake, <span class="at">y =</span> Magnitude)) <span class="sc">+</span></span>
-<span id="cb31-2"><a href="análisis-bivariado-1.html#cb31-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.16</span>, <span class="at">size =</span> <span class="fl">1.0</span>, <span class="at">color =</span> <span class="st">&quot;#2b8cbe&quot;</span>) <span class="sc">+</span></span>
-<span id="cb31-3"><a href="análisis-bivariado-1.html#cb31-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> <span class="fu">label_number</span>()) <span class="sc">+</span></span>
-<span id="cb31-4"><a href="análisis-bivariado-1.html#cb31-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb31-5"><a href="análisis-bivariado-1.html#cb31-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Magnitude vs Rrup_OpenQuake&quot;</span>,</span>
-<span id="cb31-6"><a href="análisis-bivariado-1.html#cb31-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Rrup_OpenQuake (km)&quot;</span>,</span>
-<span id="cb31-7"><a href="análisis-bivariado-1.html#cb31-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Magnitude&quot;</span></span>
-<span id="cb31-8"><a href="análisis-bivariado-1.html#cb31-8" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="análisis-bivariado-1.html#cb32-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Rrup_OpenQuake, <span class="at">y =</span> Magnitude)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="análisis-bivariado-1.html#cb32-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.16</span>, <span class="at">size =</span> <span class="fl">1.0</span>, <span class="at">color =</span> <span class="st">&quot;#2b8cbe&quot;</span>) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="análisis-bivariado-1.html#cb32-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> <span class="fu">label_number</span>()) <span class="sc">+</span></span>
+<span id="cb32-4"><a href="análisis-bivariado-1.html#cb32-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb32-5"><a href="análisis-bivariado-1.html#cb32-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Magnitude vs Rrup_OpenQuake&quot;</span>,</span>
+<span id="cb32-6"><a href="análisis-bivariado-1.html#cb32-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Rrup_OpenQuake (km)&quot;</span>,</span>
+<span id="cb32-7"><a href="análisis-bivariado-1.html#cb32-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Magnitude&quot;</span></span>
+<span id="cb32-8"><a href="análisis-bivariado-1.html#cb32-8" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="eda-espectros-sismicos_files/figure-html/mag-vs-rrup-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="magnitude-vs-hypocenter-depth-km" class="section level2 hasAnchor" number="4.8">
 <h2><span class="header-section-number">4.8</span> <code>Magnitude</code> vs <code>Hypocenter Depth (km)</code><a href="análisis-bivariado-1.html#magnitude-vs-hypocenter-depth-km" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="análisis-bivariado-1.html#cb32-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb32-2"><a href="análisis-bivariado-1.html#cb32-2" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(</span>
-<span id="cb32-3"><a href="análisis-bivariado-1.html#cb32-3" tabindex="-1"></a>    <span class="at">data =</span> mapa_base,</span>
-<span id="cb32-4"><a href="análisis-bivariado-1.html#cb32-4" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group),</span>
-<span id="cb32-5"><a href="análisis-bivariado-1.html#cb32-5" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;grey95&quot;</span>,</span>
-<span id="cb32-6"><a href="análisis-bivariado-1.html#cb32-6" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;grey70&quot;</span>,</span>
-<span id="cb32-7"><a href="análisis-bivariado-1.html#cb32-7" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">0.25</span></span>
-<span id="cb32-8"><a href="análisis-bivariado-1.html#cb32-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb32-9"><a href="análisis-bivariado-1.html#cb32-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb32-10"><a href="análisis-bivariado-1.html#cb32-10" tabindex="-1"></a>    <span class="at">data =</span> df,</span>
-<span id="cb32-11"><a href="análisis-bivariado-1.html#cb32-11" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Station Longitude</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Station Latitude</span><span class="st">`</span>, <span class="at">color =</span> Soil_Class),</span>
-<span id="cb32-12"><a href="análisis-bivariado-1.html#cb32-12" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.55</span>,</span>
-<span id="cb32-13"><a href="análisis-bivariado-1.html#cb32-13" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">1.3</span></span>
-<span id="cb32-14"><a href="análisis-bivariado-1.html#cb32-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb32-15"><a href="análisis-bivariado-1.html#cb32-15" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> xlim_map, <span class="at">ylim =</span> ylim_map, <span class="at">expand =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb32-16"><a href="análisis-bivariado-1.html#cb32-16" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb32-17"><a href="análisis-bivariado-1.html#cb32-17" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribución espacial de estaciones&quot;</span>,</span>
-<span id="cb32-18"><a href="análisis-bivariado-1.html#cb32-18" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Longitud&quot;</span>,</span>
-<span id="cb32-19"><a href="análisis-bivariado-1.html#cb32-19" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Latitud&quot;</span>,</span>
-<span id="cb32-20"><a href="análisis-bivariado-1.html#cb32-20" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Soil_Class&quot;</span></span>
-<span id="cb32-21"><a href="análisis-bivariado-1.html#cb32-21" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb32-22"><a href="análisis-bivariado-1.html#cb32-22" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb32-23"><a href="análisis-bivariado-1.html#cb32-23" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb32-24"><a href="análisis-bivariado-1.html#cb32-24" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb32-25"><a href="análisis-bivariado-1.html#cb32-25" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#eaf2fb&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>)</span>
-<span id="cb32-26"><a href="análisis-bivariado-1.html#cb32-26" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="eda-espectros-sismicos_files/figure-html/station-map-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="mapa-de-eventos-por-magnitud" class="section level2 hasAnchor" number="4.9">
-<h2><span class="header-section-number">4.9</span> Mapa de eventos por magnitud<a href="análisis-bivariado-1.html#mapa-de-eventos-por-magnitud" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="análisis-bivariado-1.html#cb33-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb33-2"><a href="análisis-bivariado-1.html#cb33-2" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(</span>
 <span id="cb33-3"><a href="análisis-bivariado-1.html#cb33-3" tabindex="-1"></a>    <span class="at">data =</span> mapa_base,</span>
@@ -383,37 +353,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb33-8"><a href="análisis-bivariado-1.html#cb33-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb33-9"><a href="análisis-bivariado-1.html#cb33-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
 <span id="cb33-10"><a href="análisis-bivariado-1.html#cb33-10" tabindex="-1"></a>    <span class="at">data =</span> df,</span>
-<span id="cb33-11"><a href="análisis-bivariado-1.html#cb33-11" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Seismic Longitude</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Seismic Latitude</span><span class="st">`</span>, <span class="at">color =</span> Magnitude, <span class="at">size =</span> Sa_0_01),</span>
-<span id="cb33-12"><a href="análisis-bivariado-1.html#cb33-12" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.45</span></span>
-<span id="cb33-13"><a href="análisis-bivariado-1.html#cb33-13" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb33-14"><a href="análisis-bivariado-1.html#cb33-14" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-11"><a href="análisis-bivariado-1.html#cb33-11" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Station Longitude</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Station Latitude</span><span class="st">`</span>, <span class="at">color =</span> Soil_Class),</span>
+<span id="cb33-12"><a href="análisis-bivariado-1.html#cb33-12" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.55</span>,</span>
+<span id="cb33-13"><a href="análisis-bivariado-1.html#cb33-13" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">1.3</span></span>
+<span id="cb33-14"><a href="análisis-bivariado-1.html#cb33-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb33-15"><a href="análisis-bivariado-1.html#cb33-15" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> xlim_map, <span class="at">ylim =</span> ylim_map, <span class="at">expand =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb33-16"><a href="análisis-bivariado-1.html#cb33-16" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb33-17"><a href="análisis-bivariado-1.html#cb33-17" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribución espacial de eventos&quot;</span>,</span>
+<span id="cb33-17"><a href="análisis-bivariado-1.html#cb33-17" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribución espacial de estaciones&quot;</span>,</span>
 <span id="cb33-18"><a href="análisis-bivariado-1.html#cb33-18" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Longitud&quot;</span>,</span>
 <span id="cb33-19"><a href="análisis-bivariado-1.html#cb33-19" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Latitud&quot;</span>,</span>
-<span id="cb33-20"><a href="análisis-bivariado-1.html#cb33-20" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Magnitude&quot;</span></span>
+<span id="cb33-20"><a href="análisis-bivariado-1.html#cb33-20" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Soil_Class&quot;</span></span>
 <span id="cb33-21"><a href="análisis-bivariado-1.html#cb33-21" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb33-22"><a href="análisis-bivariado-1.html#cb33-22" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb33-23"><a href="análisis-bivariado-1.html#cb33-23" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
 <span id="cb33-24"><a href="análisis-bivariado-1.html#cb33-24" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb33-25"><a href="análisis-bivariado-1.html#cb33-25" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#eaf2fb&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>)</span>
 <span id="cb33-26"><a href="análisis-bivariado-1.html#cb33-26" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="eda-espectros-sismicos_files/figure-html/station-map-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="mapa-de-eventos-por-magnitud" class="section level2 hasAnchor" number="4.9">
+<h2><span class="header-section-number">4.9</span> Mapa de eventos por magnitud<a href="análisis-bivariado-1.html#mapa-de-eventos-por-magnitud" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="análisis-bivariado-1.html#cb34-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb34-2"><a href="análisis-bivariado-1.html#cb34-2" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(</span>
+<span id="cb34-3"><a href="análisis-bivariado-1.html#cb34-3" tabindex="-1"></a>    <span class="at">data =</span> mapa_base,</span>
+<span id="cb34-4"><a href="análisis-bivariado-1.html#cb34-4" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group),</span>
+<span id="cb34-5"><a href="análisis-bivariado-1.html#cb34-5" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;grey95&quot;</span>,</span>
+<span id="cb34-6"><a href="análisis-bivariado-1.html#cb34-6" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;grey70&quot;</span>,</span>
+<span id="cb34-7"><a href="análisis-bivariado-1.html#cb34-7" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">0.25</span></span>
+<span id="cb34-8"><a href="análisis-bivariado-1.html#cb34-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb34-9"><a href="análisis-bivariado-1.html#cb34-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb34-10"><a href="análisis-bivariado-1.html#cb34-10" tabindex="-1"></a>    <span class="at">data =</span> df,</span>
+<span id="cb34-11"><a href="análisis-bivariado-1.html#cb34-11" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Seismic Longitude</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Seismic Latitude</span><span class="st">`</span>, <span class="at">color =</span> Magnitude, <span class="at">size =</span> Sa_0_01),</span>
+<span id="cb34-12"><a href="análisis-bivariado-1.html#cb34-12" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.45</span></span>
+<span id="cb34-13"><a href="análisis-bivariado-1.html#cb34-13" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb34-14"><a href="análisis-bivariado-1.html#cb34-14" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb34-15"><a href="análisis-bivariado-1.html#cb34-15" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> xlim_map, <span class="at">ylim =</span> ylim_map, <span class="at">expand =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb34-16"><a href="análisis-bivariado-1.html#cb34-16" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb34-17"><a href="análisis-bivariado-1.html#cb34-17" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribución espacial de eventos&quot;</span>,</span>
+<span id="cb34-18"><a href="análisis-bivariado-1.html#cb34-18" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Longitud&quot;</span>,</span>
+<span id="cb34-19"><a href="análisis-bivariado-1.html#cb34-19" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Latitud&quot;</span>,</span>
+<span id="cb34-20"><a href="análisis-bivariado-1.html#cb34-20" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Magnitude&quot;</span></span>
+<span id="cb34-21"><a href="análisis-bivariado-1.html#cb34-21" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb34-22"><a href="análisis-bivariado-1.html#cb34-22" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb34-23"><a href="análisis-bivariado-1.html#cb34-23" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb34-24"><a href="análisis-bivariado-1.html#cb34-24" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb34-25"><a href="análisis-bivariado-1.html#cb34-25" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#eaf2fb&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>)</span>
+<span id="cb34-26"><a href="análisis-bivariado-1.html#cb34-26" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="eda-espectros-sismicos_files/figure-html/event-map-1.png" alt="" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="tablas-de-contingencia-origen-vs-soil_class" class="section level2 hasAnchor" number="4.10">
 <h2><span class="header-section-number">4.10</span> Tablas de contingencia: <code>origen</code> vs <code>Soil_Class</code><a href="análisis-bivariado-1.html#tablas-de-contingencia-origen-vs-soil_class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="análisis-bivariado-1.html#cb34-1" tabindex="-1"></a>tab_origen_soil <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>origen, df<span class="sc">$</span>Soil_Class)</span>
-<span id="cb34-2"><a href="análisis-bivariado-1.html#cb34-2" tabindex="-1"></a>chi_tbl <span class="ot">&lt;-</span> <span class="fu">suppressWarnings</span>(<span class="fu">chisq.test</span>(tab_origen_soil))</span>
-<span id="cb34-3"><a href="análisis-bivariado-1.html#cb34-3" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="análisis-bivariado-1.html#cb34-4" tabindex="-1"></a>contingency_summary <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb34-5"><a href="análisis-bivariado-1.html#cb34-5" tabindex="-1"></a>  <span class="at">estadistico =</span> <span class="fu">unname</span>(chi_tbl<span class="sc">$</span>statistic),</span>
-<span id="cb34-6"><a href="análisis-bivariado-1.html#cb34-6" tabindex="-1"></a>  <span class="at">gl =</span> <span class="fu">unname</span>(chi_tbl<span class="sc">$</span>parameter),</span>
-<span id="cb34-7"><a href="análisis-bivariado-1.html#cb34-7" tabindex="-1"></a>  <span class="at">p_value =</span> chi_tbl<span class="sc">$</span>p.value,</span>
-<span id="cb34-8"><a href="análisis-bivariado-1.html#cb34-8" tabindex="-1"></a>  <span class="at">cramers_v =</span> <span class="fu">cramers_v</span>(tab_origen_soil)</span>
-<span id="cb34-9"><a href="análisis-bivariado-1.html#cb34-9" tabindex="-1"></a>)</span>
-<span id="cb34-10"><a href="análisis-bivariado-1.html#cb34-10" tabindex="-1"></a></span>
-<span id="cb34-11"><a href="análisis-bivariado-1.html#cb34-11" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">as.data.frame.matrix</span>(tab_origen_soil), <span class="at">caption =</span> <span class="st">&quot;Tabla de contingencia: origen vs Soil_Class&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="análisis-bivariado-1.html#cb35-1" tabindex="-1"></a>tab_origen_soil <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>origen, df<span class="sc">$</span>Soil_Class)</span>
+<span id="cb35-2"><a href="análisis-bivariado-1.html#cb35-2" tabindex="-1"></a>chi_tbl <span class="ot">&lt;-</span> <span class="fu">suppressWarnings</span>(<span class="fu">chisq.test</span>(tab_origen_soil))</span>
+<span id="cb35-3"><a href="análisis-bivariado-1.html#cb35-3" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="análisis-bivariado-1.html#cb35-4" tabindex="-1"></a>contingency_summary <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb35-5"><a href="análisis-bivariado-1.html#cb35-5" tabindex="-1"></a>  <span class="at">estadistico =</span> <span class="fu">unname</span>(chi_tbl<span class="sc">$</span>statistic),</span>
+<span id="cb35-6"><a href="análisis-bivariado-1.html#cb35-6" tabindex="-1"></a>  <span class="at">gl =</span> <span class="fu">unname</span>(chi_tbl<span class="sc">$</span>parameter),</span>
+<span id="cb35-7"><a href="análisis-bivariado-1.html#cb35-7" tabindex="-1"></a>  <span class="at">p_value =</span> chi_tbl<span class="sc">$</span>p.value,</span>
+<span id="cb35-8"><a href="análisis-bivariado-1.html#cb35-8" tabindex="-1"></a>  <span class="at">cramers_v =</span> <span class="fu">cramers_v</span>(tab_origen_soil)</span>
+<span id="cb35-9"><a href="análisis-bivariado-1.html#cb35-9" tabindex="-1"></a>)</span>
+<span id="cb35-10"><a href="análisis-bivariado-1.html#cb35-10" tabindex="-1"></a></span>
+<span id="cb35-11"><a href="análisis-bivariado-1.html#cb35-11" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">as.data.frame.matrix</span>(tab_origen_soil), <span class="at">caption =</span> <span class="st">&quot;Tabla de contingencia: origen vs Soil_Class&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:contingency">Table 4.1: </span>Tabla de contingencia: origen vs Soil_Class</caption>
 <thead>
@@ -445,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="análisis-bivariado-1.html#cb35-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(contingency_summary, <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">caption =</span> <span class="st">&quot;Prueba chi-cuadrado y tamaño de efecto&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="análisis-bivariado-1.html#cb36-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(contingency_summary, <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">caption =</span> <span class="st">&quot;Prueba chi-cuadrado y tamaño de efecto&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:contingency">Table 4.1: </span>Prueba chi-cuadrado y tamaño de efecto</caption>
 <thead>
@@ -465,8 +465,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="análisis-bivariado-1.html#cb36-1" tabindex="-1"></a>pct_by_col <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tab_origen_soil, <span class="at">margin =</span> <span class="dv">2</span>)</span>
-<span id="cb36-2"><a href="análisis-bivariado-1.html#cb36-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">round</span>(pct_by_col, <span class="dv">3</span>), <span class="at">caption =</span> <span class="st">&quot;Porcentajes por columna (origen dentro de cada Soil_Class)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="análisis-bivariado-1.html#cb37-1" tabindex="-1"></a>pct_by_col <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tab_origen_soil, <span class="at">margin =</span> <span class="dv">2</span>)</span>
+<span id="cb37-2"><a href="análisis-bivariado-1.html#cb37-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">round</span>(pct_by_col, <span class="dv">3</span>), <span class="at">caption =</span> <span class="st">&quot;Porcentajes por columna (origen dentro de cada Soil_Class)&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:contingency-percentages">Table 4.2: </span>Porcentajes por columna (origen dentro de cada Soil_Class)</caption>
 <thead>
@@ -502,11 +502,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="homogeneidad-de-varianzas-por-soil_class" class="section level2 hasAnchor" number="4.11">
 <h2><span class="header-section-number">4.11</span> Homogeneidad de varianzas por <code>Soil_Class</code><a href="análisis-bivariado-1.html#homogeneidad-de-varianzas-por-soil_class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="análisis-bivariado-1.html#cb37-1" tabindex="-1"></a>levene_tbl <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">leveneTest</span>(T_0<span class="fl">.01</span>_RotD50 <span class="sc">~</span> Soil_Class, <span class="at">data =</span> df) <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="análisis-bivariado-1.html#cb37-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
-<span id="cb37-3"><a href="análisis-bivariado-1.html#cb37-3" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">&quot;fuente&quot;</span>)</span>
-<span id="cb37-4"><a href="análisis-bivariado-1.html#cb37-4" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="análisis-bivariado-1.html#cb37-5" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(levene_tbl, <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">caption =</span> <span class="st">&quot;Prueba de Levene para T_0.01_RotD50 por Soil_Class&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="análisis-bivariado-1.html#cb38-1" tabindex="-1"></a>levene_tbl <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">leveneTest</span>(T_0<span class="fl">.01</span>_RotD50 <span class="sc">~</span> Soil_Class, <span class="at">data =</span> df) <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="análisis-bivariado-1.html#cb38-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="análisis-bivariado-1.html#cb38-3" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">&quot;fuente&quot;</span>)</span>
+<span id="cb38-4"><a href="análisis-bivariado-1.html#cb38-4" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="análisis-bivariado-1.html#cb38-5" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(levene_tbl, <span class="at">digits =</span> <span class="dv">5</span>, <span class="at">caption =</span> <span class="st">&quot;Prueba de Levene para T_0.01_RotD50 por Soil_Class&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:levene-test">Table 4.3: </span>Prueba de Levene para T_0.01_RotD50 por Soil_Class</caption>
 <thead>
