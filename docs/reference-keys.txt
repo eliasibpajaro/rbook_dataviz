@@ -53,7 +53,7 @@ hypocenter-depth-km-vs-rrup_openquake
 t_0.01_rotd50-vs-soil_class
 t_0.01_rotd50-vs-origen
 magnitude-vs-rrup_openquake
-magnitude-vs-hypocenter-depth-km
+mapa-de-eventos-por-soil_class
 mapa-de-eventos-por-magnitud
 tablas-de-contingencia-origen-vs-soil_class
 homogeneidad-de-varianzas-por-soil_class

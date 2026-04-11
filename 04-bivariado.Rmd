@@ -116,7 +116,7 @@ ggplot(df, aes(x = Rrup_OpenQuake, y = Magnitude)) +
   )
 ```
 
-## `Magnitude` vs `Hypocenter Depth (km)`
+## Mapa de eventos por Soil_Class
 
 ```{r station-map}
 ggplot() +
